@@ -14,6 +14,7 @@ import lejos.robotics.filter.MeanFilter;
 public class ColorSensor {
 	public EV3ColorSensor colorSensor;
 	public SampleProvider average;
+	public String currentColor;
 	
 	public  float[] blue;
 	public  float[] yellow;
@@ -82,6 +83,8 @@ public class ColorSensor {
 			colorSensor = new EV3ColorSensor(port);
 			average = new MeanFilter(colorSensor.getRGBMode(), 1);
 			colorSensor.setFloodlight(Color.WHITE);
+			
+			this.currentColor =this.getCurrentColor();
 		
 		
 	}
@@ -92,7 +95,7 @@ public class ColorSensor {
 				Math.pow(v1[2] - v2[2], 2.0));
 	}
 	
-	public String currentColor() {
+	public String getCurrentColor() {
 		float[] sample = new float[average.sampleSize()];
 		average.fetchSample(sample, 0);
 		double minscal = Double.MAX_VALUE;
@@ -145,5 +148,7 @@ public class ColorSensor {
 		
 	}
 	
-	
+	public String changeColor() {
+		return null;
+	}
 }
