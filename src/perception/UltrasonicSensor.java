@@ -2,6 +2,7 @@ package perception;
 
 import lejos.robotics.SampleProvider;
 import lejos.robotics.filter.AbstractFilter;
+import lejos.utility.Delay;
 
 public class UltrasonicSensor extends AbstractFilter {
     
@@ -34,20 +35,22 @@ public class UltrasonicSensor extends AbstractFilter {
 		return false;
 	}
 	
-	public boolean detectPalet() {
-		float currentDistance = getDistance();
-		float lastDistance = 2.5f;
+	public boolean detectPalet(float currentDistance, float lastDistance) {
+	
 		
-		while(currentDistance <= lastDistance) {
-			lastDistance = currentDistance;
-			currentDistance = getDistance();
+		
+		if((currentDistance <= lastDistance)) {
+			
 			return false;
 			
 		}
+		
 		return true;
 	}
 	
 	
-	
-	
+	public boolean facingRobot() {
+		//need tests
+		return false;
+	}
 }

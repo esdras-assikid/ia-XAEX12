@@ -28,16 +28,16 @@ public class UltraClosest {
 	EV3UltrasonicSensor us;
 	
 	public static void main(String[] args) {
-		if(Button.ENTER.isDown()) {
+		
 			new UltraClosest();
-		}
+		
 
 	}
 	
 	public UltraClosest() {
 		//pilot = new DifferentialPilot(1.5f, 6, Motor.B, Motor.C);
-		Wheel leftWheel = WheeledChassis.modelWheel(Motor.A,1.5).offset(-3); // 1.5 = diamètre des roues, offset = décalage des roues ??
-		Wheel rightWheel = WheeledChassis.modelWheel(Motor.B, 1.5).offset(3);
+		Wheel leftWheel = WheeledChassis.modelWheel(Motor.B,0.056).offset(-0.06075); // 1.5 = diamètre des roues, offset = décalage des roues ??
+		Wheel rightWheel = WheeledChassis.modelWheel(Motor.C, 0.056).offset(0.06075);
 		Chassis chassis = new WheeledChassis(new Wheel[] {leftWheel, rightWheel}, WheeledChassis.TYPE_DIFFERENTIAL);
 		pilot = new MovePilot(chassis);
 		setupUltrasonic();
@@ -55,8 +55,8 @@ public class UltraClosest {
 	public void runProgram() {
 		//pilot.reset(); // reset count of the motors
 		//pilot.setLinearSpeed(pilot.getMaxLinearSpeed());
-		pilot.setAngularSpeed(45); // 45° par sec
-		pilot.rotate(192.5,true); // continue le reste du code en même temps que la rotation
+		pilot.setAngularSpeed(90); // 45° par sec
+		pilot.rotate(360,true); // continue le reste du code en même temps que la rotation
 		float distance = 0.0f;
 		
 		while(pilot.isMoving()) {
@@ -68,9 +68,9 @@ public class UltraClosest {
 			}
 		}
 		Move movement;
-		pilot.setAngularSpeed(60);
+		pilot.setAngularSpeed(90);
 		
-		pilot.rotate(closestAngle - 192.5);
+		pilot.rotate(closestAngle - 360);
 		
 		pilot.forward();
 		distance = ultra.getDistance();
