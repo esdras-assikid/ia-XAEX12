@@ -43,14 +43,13 @@ public class Test {
 		pilot.forward();
 		
 		
-		while (pilot.isMoving()) {
+		while (true) {
 			Delay.msDelay(10);
 			currentDistance = ultra.getDistance();
-			res = ultra.detectPalet(currentDistance, lastDistance);
+			//res = ultra.detectPalet(currentDistance, lastDistance);
 			lastDistance = currentDistance;
 			
 			if(res) {
-				pilot.stop();
 				break;
 			}
 			
