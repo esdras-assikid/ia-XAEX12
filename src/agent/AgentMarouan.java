@@ -55,7 +55,7 @@ public class AgentMarouan {
 		else
 			turnRight = false;
 		
-		if(us.facingRobot() && p.aPalet()) {
+		if( p.aPalet()) {
 			d.stop();
 			if(turnRight) {
 				d.turnRight(45);
@@ -63,7 +63,8 @@ public class AgentMarouan {
 				Delay.msDelay(1500);
 				d.stop();
 				d.turnLeft(45);
-				deposerPalet();
+				d.avancer();
+				//deposerPalet();
 			}
 			else {
 				d.turnLeft(45);
@@ -71,11 +72,12 @@ public class AgentMarouan {
 				Delay.msDelay(1500);
 				d.stop();
 				d.turnRight(45);
-				deposerPalet();
+				d.avancer();
+				//deposerPalet();
 			}
 		}
 		
-		else if(us.facingRobot() && p.aPalet() == false) {
+		else if(p.aPalet() == false) {
 			
 		}
 		

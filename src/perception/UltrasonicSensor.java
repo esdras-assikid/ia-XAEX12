@@ -27,8 +27,10 @@ public class UltrasonicSensor  {
 	private EV3UltrasonicSensor us;
 	private SampleProvider source;
 	
-	public static float currentDistance;
-	public static float lastDistance;
+	private static float currentDistance;
+	private static float lastDistance;
+	
+	
 	
 	//Constructeur
 	
@@ -46,13 +48,23 @@ public class UltrasonicSensor  {
 	// Méthodes
 	
 	public float getDistance() {
+		source = us.getDistanceMode();
 		source.fetchSample(sample, 0); // fetch a sample from the US sensor
 		return sample[0];
 	}
 	
 	public float getListen() {
+		source = us.getListenMode();
 		source.fetchSample(sample, 1); // fetch a sample from the US sensor
 		return sample[1];
+	}
+	
+	public float getCurrentDistance() {
+		return currentDistance;
+	}
+	
+	public float getLastDistance() {
+		return lastDistance;
 	}
 	
 	// Permet de détecter un mur ou le robot adverse
@@ -107,12 +119,12 @@ public class UltrasonicSensor  {
 			
 			Delay.msDelay(100);
 			currentDistance = ultra.getDistance();
-			res = ultra.detectPalet();
+			res = ultra.detectWall();
 			lastDistance = currentDistance;
 			
 			System.out.println(res);
 			System.out.println(currentDistance);
-			System.out.println(lastDistance);
+			System.out.println(ultra.getDistance());
 			
 			if(res) {
 				pilot.stop();
