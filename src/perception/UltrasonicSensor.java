@@ -24,7 +24,7 @@ public class UltrasonicSensor extends AbstractFilter {
 	private float[] sample; // to store samples
 	private static Brick b ;
 	private static Port s1 ;
-	private static EV3UltrasonicSensor us = new EV3UltrasonicSensor(s1);
+	private static final EV3UltrasonicSensor us = new EV3UltrasonicSensor(s1);
 	
 	public static float currentDistance;
 	public static float lastDistance;
