@@ -7,7 +7,7 @@ public class agent {
 	// Attributs
 	
 	// Instance de l’état de l’environnement
-		Etat e; 
+		//Etat e; 
 	
 	// Instance du capteur d'ultrasons
 		UltrasonicSensor us; 
@@ -17,7 +17,12 @@ public class agent {
 		TouchSensor ts; 
 	// Instance pour la pince
 		Pince p; 
+<<<<<<< HEAD
 		Pince p3;
+=======
+		
+		Pince p1;
+>>>>>>> 0e3a1033b7b7ae9cb3f670912f1044158fc1c088
 
 		
 		// Constructeur
@@ -48,7 +53,9 @@ public class agent {
 		private void eviterPalets (){};
 
 	// se repositionne si face à un mur
-		private void eviterMur(){};
+		private void eviterMur(){
+			
+		};
 
 	// évite le robot adverse
 		private void eviterRobotAdverse(){};
@@ -59,7 +66,13 @@ public class agent {
 
 	// se repositionne si palet non touché lors de la tentative de saisie
 		private void seRepositionner (){};
+<<<<<<< HEAD
 	    public static void main(String[] args) {
+=======
+		
+		
+	public static void main(String[] args) {
+>>>>>>> 0e3a1033b7b7ae9cb3f670912f1044158fc1c088
 		// TODO Auto-generated method stub
 
 	}
