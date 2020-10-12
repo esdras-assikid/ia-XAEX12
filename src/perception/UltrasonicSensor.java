@@ -37,10 +37,10 @@ public class UltrasonicSensor  {
 		us = new EV3UltrasonicSensor(s1);
 		source = us.getMode("Distance");
 		sample = new float[source.sampleSize()]; 
-		currentDistance = this.getDistance();
-		lastDistance = 3.0f;
 		b = BrickFinder.getDefault();
 		s1 = b.getPort("S1");
+		currentDistance = this.getDistance();
+		lastDistance = 3.0f;
 	}
 	
 	// Méthodes
@@ -95,7 +95,7 @@ public class UltrasonicSensor  {
 		Wheel rightWheel = WheeledChassis.modelWheel(Motor.C, 0.056).offset(0.06075);
 		Chassis chassis = new WheeledChassis(new Wheel[] {leftWheel, rightWheel}, WheeledChassis.TYPE_DIFFERENTIAL);
 		pilot = new MovePilot(chassis);
-		ultra = new UltrasonicSensor(us.getMode("Distance"));
+		ultra = new UltrasonicSensor();
 		
 		
 		
@@ -120,7 +120,7 @@ public class UltrasonicSensor  {
 			}
 			
 			if(Button.ESCAPE.isDown()) {
-				us.close();
+				ultra.us.close();
 				System.exit(0);
 			}
 		}
