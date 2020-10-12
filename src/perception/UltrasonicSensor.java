@@ -34,11 +34,11 @@ public class UltrasonicSensor  {
 	
 	public UltrasonicSensor() { // source = sensor mode
 		
+		b = BrickFinder.getDefault();
+		s1 = b.getPort("S1");
 		us = new EV3UltrasonicSensor(s1);
 		source = us.getMode("Distance");
 		sample = new float[source.sampleSize()]; 
-		b = BrickFinder.getDefault();
-		s1 = b.getPort("S1");
 		currentDistance = this.getDistance();
 		lastDistance = 3.0f;
 	}
