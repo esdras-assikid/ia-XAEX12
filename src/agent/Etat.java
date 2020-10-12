@@ -31,6 +31,7 @@ public class Etat {
 			
 	}
 	
+	// Met à jour le nombre de points probables restant sur la ligne passée en paramètre
 	public void mettreAjour (int idLigne){
 		if(idLigne == idLigneLoin)
 			ligneLoin.setNbrPointRestant(ligneLoin.getNbrPointRestant()-1);

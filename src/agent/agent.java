@@ -17,6 +17,7 @@ public class agent {
 		TouchSensor ts; 
 	// Instance pour la pince
 		Pince p; 
+		Pince p3;
 
 		
 		// Constructeur
@@ -58,7 +59,7 @@ public class agent {
 
 	// se repositionne si palet non touché lors de la tentative de saisie
 		private void seRepositionner (){};
-	public static void main(String[] args) {
+	    public static void main(String[] args) {
 		// TODO Auto-generated method stub
 
 	}
