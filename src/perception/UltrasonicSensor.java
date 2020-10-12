@@ -22,8 +22,8 @@ public class UltrasonicSensor extends AbstractFilter {
 	
 	
 	private float[] sample; // to store samples
-	private static Brick b ;
-	private static Port s1 ;
+	private static final Brick b = BrickFinder.getDefault(); ;
+	private static final Port s1 = b.getPort("S1");
 	private static final EV3UltrasonicSensor us = new EV3UltrasonicSensor(s1);
 	
 	public static float currentDistance;
@@ -36,8 +36,6 @@ public class UltrasonicSensor extends AbstractFilter {
 		sample = new float[sampleSize]; 
 		currentDistance = this.getDistance();
 		lastDistance = 3.0f;
-		b = BrickFinder.getDefault();
-		s1 = b.getPort("S1");
 	}
 	
 	// Méthodes
