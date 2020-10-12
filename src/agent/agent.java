@@ -6,7 +6,7 @@ import perception.*;
 public class agent {
 	// Attributs
 	
-	// Instance de l’état de l’environnement
+	// Instance de lâ€™Ã©tat de lâ€™environnement
 		//Etat e; 
 	
 	// Instance du capteur d'ultrasons
@@ -17,12 +17,6 @@ public class agent {
 		TouchSensor ts; 
 	// Instance pour la pince
 		Pince p; 
-<<<<<<< HEAD
-		Pince p3;
-=======
-		
-		Pince p1;
->>>>>>> 0e3a1033b7b7ae9cb3f670912f1044158fc1c088
 
 		
 		// Constructeur
@@ -31,40 +25,40 @@ public class agent {
 		}
 		
 		
-		// Méthodes
+		// MÃ©thodes
 		
-		// Méthode pour marquer le premier point
+		// MÃ©thode pour marquer le premier point
 		private void marquerPremierPoint(){}; 
-	// Méthode pour marquer un point (autre que le premier)
+	// MÃ©thode pour marquer un point (autre que le premier)
 		private void marquerUnPoint(){}; 
 
 	// Recherche le palet le plus proche et retourne la distance correspondante
 		private float rechercherPaletPlusProche (){}; 
 
-	// se dirige vers et saisit le palet le plus proche, puis retourne true si un palet a bel et bien été saisi
+	// se dirige vers et saisit le palet le plus proche, puis retourne true si un palet a bel et bien Ã©tÃ© saisi
 	// retourne false sinon
-	// distance = distance du palet le plus proche lors de la détection
+	// distance = distance du palet le plus proche lors de la dÃ©tection
 		private boolean saisirPaletPlusProche (float distance){}; 
 
-	// S'oriente, se dirige vers la ligne adverse et dépose le palet 
+	// S'oriente, se dirige vers la ligne adverse et dÃ©pose le palet 
 		private void deposerPalet (){};
 
-	// évite les palets sur le chemin lors de la phase de dépose
+	// Ã©vite les palets sur le chemin lors de la phase de dÃ©pose
 		private void eviterPalets (){};
 
-	// se repositionne si face à un mur
+	// se repositionne si face Ã  un mur
 		private void eviterMur(){
 			
 		};
 
-	// évite le robot adverse
+	// Ã©vite le robot adverse
 		private void eviterRobotAdverse(){};
 
-	// se positionne au milieu d'une ligne de couleur après avoir marqué un point
-	// (couleur dépend de la ligne sur laquelle se trouvent les palets les plus proches)
+	// se positionne au milieu d'une ligne de couleur aprÃ¨s avoir marquÃ© un point
+	// (couleur dÃ©pend de la ligne sur laquelle se trouvent les palets les plus proches)
 		private void positionApresPoint(){};
 
-	// se repositionne si palet non touché lors de la tentative de saisie
+	// se repositionne si palet non touchÃ© lors de la tentative de saisie
 		private void seRepositionner (){};
 <<<<<<< HEAD
 	    public static void main(String[] args) {
