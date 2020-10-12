@@ -15,38 +15,43 @@ import lejos.robotics.navigation.MovePilot;
 import lejos.utility.Delay;
 
 
-public class UltrasonicSensor extends AbstractFilter {
+public class UltrasonicSensor  {
     
 	//Attribut
 	
 	
 	
 	private float[] sample; // to store samples
-	private static final Brick b = BrickFinder.getDefault(); ;
-	private static final Port s1 = b.getPort("S1");
-	private static final EV3UltrasonicSensor us = new EV3UltrasonicSensor(s1);
+	private  Brick b ; 
+	private  Port s1 ;
+	private EV3UltrasonicSensor us;
+	private SampleProvider source;
 	
 	public static float currentDistance;
 	public static float lastDistance;
 	
 	//Constructeur
 	
-	public UltrasonicSensor(SampleProvider source) { // source = sensor mode
-		super(source); // initialise la source (choix du sensor) et la taille du sample correspondant
-		sample = new float[sampleSize]; 
+	public UltrasonicSensor() { // source = sensor mode
+		
+		us = new EV3UltrasonicSensor(s1);
+		source = us.getMode("Distance");
+		sample = new float[source.sampleSize()]; 
 		currentDistance = this.getDistance();
 		lastDistance = 3.0f;
+		b = BrickFinder.getDefault();
+		s1 = b.getPort("S1");
 	}
 	
 	// Méthodes
 	
 	public float getDistance() {
-		super.fetchSample(sample, 0); // fetch a sample from the US sensor
+		source.fetchSample(sample, 0); // fetch a sample from the US sensor
 		return sample[0];
 	}
 	
 	public float getListen() {
-		super.fetchSample(sample, 1); // fetch a sample from the US sensor
+		source.fetchSample(sample, 1); // fetch a sample from the US sensor
 		return sample[1];
 	}
 	
