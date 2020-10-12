@@ -22,8 +22,8 @@ public class UltrasonicSensor extends AbstractFilter {
 	
 	
 	private float[] sample; // to store samples
-	static Brick b = BrickFinder.getDefault();
-	static Port s1 = b.getPort("S1");
+	private static Brick b = BrickFinder.getDefault();
+	private static Port s1 = b.getPort("S1");
 	private static EV3UltrasonicSensor us = new EV3UltrasonicSensor(s1);
 	
 	public static float currentDistance;
@@ -43,6 +43,11 @@ public class UltrasonicSensor extends AbstractFilter {
 	public float getDistance() {
 		super.fetchSample(sample, 0); // fetch a sample from the US sensor
 		return sample[0];
+	}
+	
+	public float getListen() {
+		super.fetchSample(sample, 1); // fetch a sample from the US sensor
+		return sample[1];
 	}
 	
 	// Permet de détecter un mur ou le robot adverse
@@ -70,7 +75,10 @@ public class UltrasonicSensor extends AbstractFilter {
 	
 	
 	public boolean facingRobot() {
-		//need tests
+		
+		if(this.getListen() == 1)
+			return true;
+			
 		return false;
 	}
 	public static void main(String[] args) {
