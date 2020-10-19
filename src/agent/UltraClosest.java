@@ -49,7 +49,7 @@ public class UltraClosest {
 		Brick b = BrickFinder.getDefault();
 		Port s1 = b.getPort("S1");
 		us = new EV3UltrasonicSensor(s1);
-		ultra = new UltrasonicSensor(us.getMode("Distance"));
+		ultra = new UltrasonicSensor();
 	}
 	
 	public void runProgram() {
@@ -61,9 +61,9 @@ public class UltraClosest {
 		
 		while(pilot.isMoving()) {
 			Delay.msDelay(10); // 50 mesures par sec
-		    UltrasonicSensor.currentDistance = ultra.getDistance();
-			if (UltrasonicSensor.currentDistance < closestDistance && UltrasonicSensor.currentDistance > 0.320) {
-				closestDistance = UltrasonicSensor.currentDistance;
+		    ultra.setCurrentDistance(ultra.getDistance());
+			if (ultra.getCurrentDistance() < closestDistance && ultra.getCurrentDistance() > 0.320) {
+				closestDistance = ultra.getCurrentDistance();
 				closestAngle = pilot.getMovement().getAngleTurned(); // retourne l'angle parcouru depuis que la rotation a commencé
 			}
 		}
@@ -76,13 +76,13 @@ public class UltraClosest {
 			pilot.rotate(closestAngle - 360);
 		
 		pilot.forward();
-		UltrasonicSensor.currentDistance= ultra.getDistance();
+		ultra.setCurrentDistance(ultra.getDistance()) ;
 		boolean res = false;
 		while (res == false && ultra.detectWall() == false) {
 			Delay.msDelay(100);
-			UltrasonicSensor.currentDistance = ultra.getDistance();
+			ultra.setCurrentDistance(ultra.getDistance()) ;
 			res = ultra.detectPalet();
-			UltrasonicSensor.lastDistance = UltrasonicSensor.currentDistance;
+			ultra.setLastDistance(ultra.getCurrentDistance()) ;
 		}
 		
 		pilot.stop();

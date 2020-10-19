@@ -127,7 +127,7 @@ public class UltrasonicSensor  {
 			
 			Delay.msDelay(100);
 			currentDistance = ultra.getDistance();
-			res = ultra.detectWall();
+			res = ultra.detectPalet();
 			lastDistance = currentDistance;
 			
 			System.out.println(res);
@@ -135,6 +135,9 @@ public class UltrasonicSensor  {
 			System.out.println(ultra.getDistance());
 			
 			if(res) {
+				pilot.rotate(90);
+				pilot.forward();
+				Delay.msDelay(1000);
 				pilot.stop();
 				System.out.print(res);
 			}
