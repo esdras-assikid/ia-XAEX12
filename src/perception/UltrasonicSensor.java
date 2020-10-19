@@ -15,7 +15,7 @@ import lejos.robotics.navigation.MovePilot;
 import lejos.utility.Delay;
 
 
-public class UltrasonicSensor extends AbstractFilter {
+public class UltrasonicSensor  {
     
 	//Attribut
 	
@@ -25,28 +25,61 @@ public class UltrasonicSensor extends AbstractFilter {
 	static Brick b = BrickFinder.getDefault() ;
 	static Port s1 = b.getPort("S1") ;
 	public static final EV3UltrasonicSensor us = new EV3UltrasonicSensor(s1);
+	private  Brick b ; 
+	private  Port s1 ;
+	private EV3UltrasonicSensor us;
+	private SampleProvider source;
 	
-	public static float currentDistance;
-	public static float lastDistance;
+	private static float currentDistance;
+	private static float lastDistance;
+	
+	
 	
 	//Constructeur
 	
-	public UltrasonicSensor(SampleProvider source) { // source = sensor mode
-		super(source); // initialise la source (choix du sensor) et la taille du sample correspondant
-		sample = new float[sampleSize]; 
+	public UltrasonicSensor() { // source = sensor mode
+		
+		b = BrickFinder.getDefault();
+		s1 = b.getPort("S1");
+		us = new EV3UltrasonicSensor(s1);
+		source = us.getMode("Distance");
+		sample = new float[source.sampleSize()]; 
 		currentDistance = this.getDistance();
 		lastDistance = 3.0f;
 	}
 	
-	// Méthodes
+	// Mï¿½thodes
 	
 	public float getDistance() {
-		super.fetchSample(sample, 0); // fetch a sample from the US sensor
+		source = us.getDistanceMode();
+		source.fetchSample(sample, 0); // fetch a sample from the US sensor
 		return sample[0];
 	}
 	
-	// Permet de détecter un mur ou le robot adverse
-	// Si la distance est inférieur à celle à partir de laquelle un palet n'est plus détecté, alors c'est ou bien un mur
+	public float getListen() {
+		source = us.getListenMode();
+		source.fetchSample(sample, 1); // fetch a sample from the US sensor
+		return sample[1];
+	}
+	
+	public float getCurrentDistance() {
+		return currentDistance;
+	}
+	
+	public float getLastDistance() {
+		return lastDistance;
+	}
+	
+	public void setCurrentDistance(float currentDistance) {
+		this.currentDistance = currentDistance;
+	}
+	
+	public void setLastDistance(float lastDistance) {
+		this.lastDistance = lastDistance;
+	}
+	
+	// Permet de dï¿½tecter un mur ou le robot adverse
+	// Si la distance est infï¿½rieur ï¿½ celle ï¿½ partir de laquelle un palet n'est plus dï¿½tectï¿½, alors c'est ou bien un mur
 	// ou bien le robot adverse qui est en face
 	public boolean detectWall() {
 		if(currentDistance < 0.3) {
@@ -70,7 +103,10 @@ public class UltrasonicSensor extends AbstractFilter {
 	
 	
 	public boolean facingRobot() {
-		//need tests
+		
+		if(this.getListen() == 1)
+			return true;
+			
 		return false;
 	}
 	public static void main(String[] args) {
@@ -78,11 +114,11 @@ public class UltrasonicSensor extends AbstractFilter {
 		UltrasonicSensor ultra;
 		
 		MovePilot pilot;
-		Wheel leftWheel = WheeledChassis.modelWheel(Motor.B,0.056).offset(-0.06075); // 0.056 = diamètre des roues, offset = décalage des roues ??
+		Wheel leftWheel = WheeledChassis.modelWheel(Motor.B,0.056).offset(-0.06075); // 0.056 = diamï¿½tre des roues, offset = dï¿½calage des roues ??
 		Wheel rightWheel = WheeledChassis.modelWheel(Motor.C, 0.056).offset(0.06075);
 		Chassis chassis = new WheeledChassis(new Wheel[] {leftWheel, rightWheel}, WheeledChassis.TYPE_DIFFERENTIAL);
 		pilot = new MovePilot(chassis);
-		ultra = new UltrasonicSensor(us.getMode("Distance"));
+		ultra = new UltrasonicSensor();
 		
 		
 		
@@ -99,15 +135,18 @@ public class UltrasonicSensor extends AbstractFilter {
 			
 			System.out.println(res);
 			System.out.println(currentDistance);
-			System.out.println(lastDistance);
+			System.out.println(ultra.getDistance());
 			
 			if(res) {
+				pilot.rotate(90);
+				pilot.forward();
+				Delay.msDelay(1000);
 				pilot.stop();
 				System.out.print(res);
 			}
 			
 			if(Button.ESCAPE.isDown()) {
-				us.close();
+				ultra.us.close();
 				System.exit(0);
 			}
 		}

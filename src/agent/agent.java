@@ -11,6 +11,9 @@ public class Agent {
 	// Attributs
 	
 	// Instance de l'etat de l'environnement
+
+	// Instance de l’état de l’environnement
+
 		Etat e; 
 	
 	// Instance du capteur d'ultrasons
@@ -24,7 +27,6 @@ public class Agent {
 		
 	//Instance de deplacement
 		Deplacement d;
-
 		
 		// Constructeur
 		public Agent() throws FileNotFoundException {
@@ -57,13 +59,25 @@ public class Agent {
 	// évite les palets sur le chemin lors de la phase de dépose
 		private void eviterPalets (){};
 
-	// se repositionne si face à un mur
-		private void eviterMur(){
-			
-		};
+	
 
 	// évite le robot adverse
-		private void eviterRobotAdverse(){};
+		private void eviterRobotAdverse(){
+			boolean turnRight = false;
+			int r = (int) Math.random()*2 + 1;
+			if(r == 0)
+				turnRight = true;
+			else
+				turnRight = false;
+			
+			if(us.facingRobot() && p.aPalet()) {
+				d.stop();
+				if(turnRight) {
+					d.turnRight(45);
+					
+				}
+			}
+		};
 
 	// se positionne au milieu d'une ligne de couleur après avoir marqué un point
 	// (couleur dépend de la ligne sur laquelle se trouvent les palets les plus proches)
@@ -127,12 +141,16 @@ public class Agent {
 		};
 
 	// se repositionne si palet non touché lors de la tentative de saisie
+
 		//private void seRepositionner (){};
 		
+		private void seRepositionner (){};
 
-		
+	    
+	
 		
 	public static void main(String[] args) {
+
 		try {
 			Agent a = new Agent();
 			a.positionApresPoint();
