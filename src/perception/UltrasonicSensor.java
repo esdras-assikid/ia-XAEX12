@@ -67,6 +67,14 @@ public class UltrasonicSensor  {
 		return lastDistance;
 	}
 	
+	public void setCurrentDistance(float currentDistance) {
+		this.currentDistance = currentDistance;
+	}
+	
+	public void setLastDistance(float lastDistance) {
+		this.lastDistance = lastDistance;
+	}
+	
 	// Permet de détecter un mur ou le robot adverse
 	// Si la distance est inférieur à celle à partir de laquelle un palet n'est plus détecté, alors c'est ou bien un mur
 	// ou bien le robot adverse qui est en face
