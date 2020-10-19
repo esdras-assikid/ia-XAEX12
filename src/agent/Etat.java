@@ -16,11 +16,13 @@ public class Etat {
 		Ligne ligneProche ;
 		Ligne ligneLoin ;
 		Ligne ligneMilieu; 
+		private int idligneActuel;
 
 
 	public Etat(String couleurLigneProche) {
 		ligneProche = new Ligne(couleurLigneProche, idLigneProche);
 		ligneMilieu = new Ligne(ColorSensor.BLACK, idLigneMilieu);
+		idligneActuel = idLigneProche;
 		if(couleurLigneProche.equals(ColorSensor.BLUE)) {
 			ligneLoin = new Ligne(ColorSensor.GREEN, idLigneLoin);
 		}else if(couleurLigneProche.equals(ColorSensor.GREEN)) {
@@ -39,6 +41,32 @@ public class Etat {
 			ligneMilieu.setNbrPointRestant(ligneMilieu.getNbrPointRestant()-1);
 		if(idLigne == idLigneProche)
 			ligneProche.setNbrPointRestant(ligneProche.getNbrPointRestant()-1);
+	}
+
+	public int getIdligneActuel() {
+		return idligneActuel;
+	}
+
+	public void setIdligneActuel() {
+		if(idligneActuel == idLigneProche)
+			if(ligneProche.getNbrPointRestant() == 0) {
+				this.idligneActuel = idLigneLoin;
+			}
+		if(idligneActuel == idLigneLoin)
+			if(ligneLoin.getNbrPointRestant() == 0) {
+				this.idligneActuel = idLigneMilieu;
+			}
+		if(idligneActuel == idLigneMilieu)
+			if(ligneLoin.getNbrPointRestant() == 0) {
+				this.idligneActuel = idLigneProche;
+			}	
+	}
+
+	/**
+	 * @param idligneActuel the idligneActuel to set
+	 */
+	public void setIdligneActuel(int idligneActuel) {
+		this.idligneActuel = idligneActuel;
 	}
 
 }

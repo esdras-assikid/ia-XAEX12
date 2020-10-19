@@ -56,7 +56,7 @@ public class Navigate {
 		chemin.add((new Waypoint(0.60, 0.50)));
 		chemin.add((new Waypoint( 2.40, 0.10)));
 		chemin.add((new Waypoint( 1.80, 0.80)));
-		chemin.add();
+		
 		
 		//
 		
