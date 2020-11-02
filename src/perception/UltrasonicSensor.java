@@ -22,12 +22,9 @@ public class UltrasonicSensor  {
 	
 	
 	private float[] sample; // to store samples
-	static Brick b = BrickFinder.getDefault() ;
-	static Port s1 = b.getPort("S1") ;
-	public static final EV3UltrasonicSensor us = new EV3UltrasonicSensor(s1);
-	private  Brick b ; 
-	private  Port s1 ;
-	private EV3UltrasonicSensor us;
+	static Brick b ;
+	static Port s1 ;
+	public  EV3UltrasonicSensor us ;
 	private SampleProvider source;
 	
 	private static float currentDistance;
