@@ -33,7 +33,7 @@ public class Agent {
 			cs = new ColorSensor();
 			d = new Deplacement();
 			e = new Etat(ColorSensor.BLUE);
-			us = new UltrasonicSensor(UltrasonicSensor.us.getMode("Distance"));
+			us = new UltrasonicSensor();
 			
 		}
 		
@@ -70,7 +70,7 @@ public class Agent {
 			else
 				turnRight = false;
 			
-			if(us.facingRobot() && p.aPalet()) {
+			if(us.facingRobot() && p.isaPalet()) {
 				d.stop();
 				if(turnRight) {
 					d.turnRight(45);
@@ -91,7 +91,7 @@ public class Agent {
 					Delay.msDelay(50);
 					distance = us.getDistance();
 					if(Button.ESCAPE.isDown()) {
-						UltrasonicSensor.us.close();
+						//us.close();
 						this.cs.colorSensor.close();
 						this.d.stop();
 						
@@ -105,7 +105,7 @@ public class Agent {
 					Delay.msDelay(50);
 					distance = us.getDistance();
 					if(Button.ESCAPE.isDown()) {
-						UltrasonicSensor.us.close();
+						//UltrasonicSensor.us.close();
 						this.cs.colorSensor.close();
 						this.d.stop();
 						
@@ -156,7 +156,7 @@ public class Agent {
 			a.positionApresPoint();
 			
 			if(Button.ESCAPE.isDown()) {
-				UltrasonicSensor.us.close();
+				//UltrasonicSensor.us.close();
 				a.cs.colorSensor.close();
 				a.d.stop();
 				

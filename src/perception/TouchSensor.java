@@ -17,8 +17,6 @@ import lejos.robotics.navigation.MovePilot;
 
 public class TouchSensor {
 
-
-public class TouchSensor extends EV3TouchSensor {
 	
 	public boolean touch = false;
 	private EV3TouchSensor ts;

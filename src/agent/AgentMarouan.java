@@ -47,6 +47,9 @@ public class AgentMarouan {
 
 
 // évite le robot adverse
+	/**
+	 * 
+	 */
 	private void eviterRobotAdverse(){
 		boolean turnRight = false;
 		int r = (int) Math.random()*2 + 1;
@@ -55,7 +58,7 @@ public class AgentMarouan {
 		else
 			turnRight = false;
 		
-		if( p.aPalet()) {
+		if( p.isaPalet()) {
 			d.stop();
 			if(turnRight) {
 				d.turnRight(45);
@@ -77,9 +80,11 @@ public class AgentMarouan {
 			}
 		}
 		
-		else if(p.aPalet() == false) {
-			
-		}
+		/*
+		 * else if(p.aPalet() == false) {
+		 * 
+		 * }
+		 */
 		
 	}
 
