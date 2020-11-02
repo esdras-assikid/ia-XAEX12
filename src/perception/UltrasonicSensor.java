@@ -76,7 +76,7 @@ public class UltrasonicSensor  {
 	}
 	
 	// Permet de d�tecter un mur ou le robot adverse
-	// Si la distance est inf�rieur � celle � partir de laquelle un palet n'est plus d�tect�, alors c'est ou bien un mur
+	// Si la distance est inferieur a celle a partir de laquelle un palet n'est plus detecte, alors c'est ou bien un mur
 	// ou bien le robot adverse qui est en face
 	public boolean detectWall() {
 		if(currentDistance < 0.3) {
@@ -111,7 +111,7 @@ public class UltrasonicSensor  {
 		UltrasonicSensor ultra;
 		
 		MovePilot pilot;
-		Wheel leftWheel = WheeledChassis.modelWheel(Motor.B,0.056).offset(-0.06075); // 0.056 = diam�tre des roues, offset = d�calage des roues ??
+		Wheel leftWheel = WheeledChassis.modelWheel(Motor.B,0.056).offset(-0.06075); // 0.056 = diametre des roues, offset = decalage des roues ??
 		Wheel rightWheel = WheeledChassis.modelWheel(Motor.C, 0.056).offset(0.06075);
 		Chassis chassis = new WheeledChassis(new Wheel[] {leftWheel, rightWheel}, WheeledChassis.TYPE_DIFFERENTIAL);
 		pilot = new MovePilot(chassis);

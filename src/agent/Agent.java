@@ -41,9 +41,9 @@ public class Agent {
 		// Méthodes
 		
 		// Méthode pour marquer le premier point
-		//private void marquerPremierPoint(){}; 
+		private void marquerPremierPoint(){}; 
 	// Méthode pour marquer un point (autre que le premier)
-		//private void marquerUnPoint(){}; 
+		private void marquerUnPoint(){}; 
 
 	// Recherche le palet le plus proche et retourne la distance correspondante
 		//private float rechercherPaletPlusProche (){}; 
@@ -63,21 +63,7 @@ public class Agent {
 
 	// évite le robot adverse
 		private void eviterRobotAdverse(){
-			boolean turnRight = false;
-			int r = (int) Math.random()*2 + 1;
-			if(r == 0)
-				turnRight = true;
-			else
-				turnRight = false;
-			
-			if(us.facingRobot() && p.isaPalet()) {
-				d.stop();
-				if(turnRight) {
-					d.turnRight(45);
-					
-				}
-			}
-		};
+		}
 
 	// se positionne au milieu d'une ligne de couleur après avoir marqué un point
 	// (couleur dépend de la ligne sur laquelle se trouvent les palets les plus proches)

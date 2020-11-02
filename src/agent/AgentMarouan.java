@@ -2,6 +2,8 @@ package agent;
 
 import action.*;
 import perception.*;
+import lejos.hardware.Button;
+import lejos.robotics.navigation.Move;
 import lejos.utility.Delay;
 
 public class AgentMarouan {
@@ -24,13 +26,17 @@ public class AgentMarouan {
 		
 		// Constructeur
 		public AgentMarouan() {
-			
+			us = new UltrasonicSensor();
+			d = new Deplacement();
+			ts = new TouchSensor();
+			p = new Pince();
+			rechercherPaletPlusProche();
 		}
 		
 		
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-
+		new AgentMarouan();
 	}
 	
 	
@@ -39,7 +45,48 @@ public class AgentMarouan {
 
 // Recherche le palet le plus proche et retourne la distance correspondante
 	private float rechercherPaletPlusProche (){
-		return 0;
+		float closestAngle = -1.0f;
+
+		d.getPilot().rotate(50);; 
+		d.getPilot().rotate(-100, true);
+		
+		while(d.getPilot().isMoving()) {
+			Delay.msDelay(10); // 50 mesures par sec
+		    us.setCurrentDistance(us.getDistance());
+			if (us.getCurrentDistance() < us.getLastDistance() && us.getCurrentDistance() > 0.310) {
+				us.setLastDistance(us.getCurrentDistance());
+				closestAngle = d.getPilot().getMovement().getAngleTurned(); // retourne l'angle parcouru depuis que la rotation a commencé
+			}
+		}
+		
+		d.getPilot().setAngularSpeed(45);
+		
+		
+		d.getPilot().rotate(100+closestAngle);
+		
+		p.deserrer();
+		d.avancer();
+		us.setCurrentDistance(us.getDistance()) ;
+		boolean res = false;
+		while (res == false && us.detectWall() == false) {
+			Delay.msDelay(100);
+			us.setCurrentDistance(us.getDistance()) ;
+			res = ts.aEteTouche();//res = us.detectPalet();
+			us.setLastDistance(us.getCurrentDistance()) ;
+		}
+		p.saisiePalet();
+		d.stop();
+		
+		while(true) {
+
+			
+			if(Button.ESCAPE.isDown()) {
+				d.stop();
+				us.us.close();
+				System.exit(0);
+			}
+
+		}
 	}
 
 

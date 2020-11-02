@@ -82,7 +82,7 @@ public class Deplacement {
 	 * @see Deplacement#position
 	 */
 	public void turnLeft(int angle) {
-		pilot.rotate(-angle);
+		pilot.rotate(-angle,true);
 		modifierPosition(-angle);
 	}
 	/**
@@ -92,7 +92,7 @@ public class Deplacement {
 	 * @see Deplacement#position
 	 */
 	public void turnRight(int angle) {
-		pilot.rotate(angle);
+		pilot.rotate(angle,true);
 		modifierPosition(angle);
 	}
 	/**
