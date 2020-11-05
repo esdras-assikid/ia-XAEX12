@@ -16,6 +16,7 @@ public class agentAlizee {
 		UltrasonicSensor us;
 		Pince p; 
 		ColorSensor cs;
+		Ligne l;
 		
 		public agentAlizee() {
 			d= new Deplacement();
@@ -63,21 +64,22 @@ private void eviterPalets(){
 		if (p.isaPalet() == true) {
 			
 			// se replacer face à la ligne adverse
-			
 			int po = d.getPosition();
 			if (po>=0 && po<=180) {
 				d.turnLeft(po); // en tournant à gauche si le robot est dans les 180 premieres degrés
 			}
-			else if(po>=180) { // au à droite s'il est dans l'autre sens
+			else if(po>=180) { // ou à droite s'il est dans l'autre sens
 				d.turnRight(360-po);
 			}
 			
 			// avancer tant qu'on n'a pas franchit la ligne adverse
 			
-			for(int i=0; cs.currentColor[i]!=cs.ColorSensor.WHITE; i++) { // tant qu'on n'a pas franchit la ligne blanche adverse
-				d.avancer(); //on avance
-				eviterPalets(); // tout en évitant les palets
+
+			while(l.getCouleur()!="WHITE") {
+				d.avancer();
+				eviterPalets();
 			}
+			
 			
 			// puis avancer encore un petit peu avant de s'arrêter, de lacher le palet, de reculer et de fermer les pinces
 			d.avancer();
@@ -90,9 +92,9 @@ private void eviterPalets(){
 		}
 		else{
 			System.out.println("pas de palet saisi"); // sinon, il n'y a pas de palet saisi
-			us.recherchePaletLePlusProche();
-			d.saisirPaletLePlusProche();
-			d.deposerPalet();
+			recherchePaletPlusProche();
+			saisirPaletPlusProche();
+			deposerPalet();
 			// ou marquerUnPoint();
 		}
 	}
