@@ -33,7 +33,7 @@ public class Agent {
 			cs = new ColorSensor();
 			d = new Deplacement();
 			e = new Etat(ColorSensor.BLUE);
-			us = new UltrasonicSensor(UltrasonicSensor.us.getMode("Distance"));
+			us = new UltrasonicSensor();
 			
 		}
 		
