@@ -25,12 +25,10 @@ public class TestsPince {
 			// 2- s'assurer que le palet est correctement emprisonne entre les pinces
 			// pendant les deplacements du robot
 			pince.saisiePalet();
-			d.avancer();
-			Delay.msDelay(50);
+			d.getPilot().travel(0.10);
 			d.turnLeft(360);
 			d.turnRight(360);
-			d.reculer();
-			Delay.msDelay(50);
+			d.getPilot().travel(-0.10);
 			pince.lachePalet();
 			
 		/* si 2 est un echec apres une reussite de 1, recalibrer le nombre de tours
