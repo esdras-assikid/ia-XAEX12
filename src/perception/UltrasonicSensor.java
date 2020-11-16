@@ -55,8 +55,8 @@ public class UltrasonicSensor  {
 	
 	public float getListen() {
 		source = us.getListenMode();
-		source.fetchSample(sample, 1); // fetch a sample from the US sensor
-		return sample[1];
+		source.fetchSample(sample, 0); // fetch a sample from the US sensor
+		return sample[0];
 	}
 	
 	public float getCurrentDistance() {
@@ -79,7 +79,7 @@ public class UltrasonicSensor  {
 	// Si la distance est inferieur a celle a partir de laquelle un palet n'est plus detecte, alors c'est ou bien un mur
 	// ou bien le robot adverse qui est en face
 	public boolean detectWall() {
-		if(currentDistance < 0.3) {
+		if(getDistance() < 0.3) {
 			return true;
 		}
 		
@@ -119,8 +119,58 @@ public class UltrasonicSensor  {
 		
 		
 		
-		boolean res = false;
-		lastDistance = 2.5f;
+		//Test getDistance()
+		
+		while(true) {
+			System.out.println(ultra.getDistance());
+			Delay.msDelay(1000);
+		if(Button.ESCAPE.isDown()) {
+				ultra.us.close();
+				System.exit(0);
+			}
+		}
+		
+		
+		
+		/*Test detectPalet()
+		pilot.forward();
+		while(true) {
+			
+			currentDistance = ultra.getDistance();
+			if(ultra.detectPalet())
+				pilot.stop();
+			lastDistance = currentDistance;
+			Delay.msDelay(50);
+			
+			if(Button.ESCAPE.isDown()) {
+				ultra.us.close();
+				System.exit(0);
+			}
+		}
+		*/
+		
+		/*Test detectWall()
+		pilot.forward();
+		while(true) {
+			//currentDistance = ultra.getDistance();
+			if(ultra.detectWall())
+				pilot.stop();
+			//Delay.msDelay(50);
+			
+			if(Button.ESCAPE.isDown()) {
+				ultra.us.close();
+				System.exit(0);
+			}
+		}
+		*/
+		
+		
+		
+		/* Test rechercherPalet
+		 * 
+		 * 
+		 * boolean res = false;
+		
 		pilot.forward();
 		while (true) {
 			
@@ -142,10 +192,13 @@ public class UltrasonicSensor  {
 				System.out.print(res);
 			}
 			
+		
+		
 			if(Button.ESCAPE.isDown()) {
 				ultra.us.close();
 				System.exit(0);
 			}
 		}
+		*/
 	}
 }
