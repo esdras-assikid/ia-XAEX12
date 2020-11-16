@@ -14,10 +14,14 @@
 
 package agent;
 import perception.*;
+
+import java.io.FileNotFoundException;
+
 import action.*;
+import lejos.robotics.navigation.MovePilot;
 
 
-public class agentPierre {
+public class AgentPierre {
 	
 	// Attributs
 	
@@ -32,7 +36,7 @@ public class agentPierre {
 		
 		Deplacement d = new Deplacement();
 	
-	public agentPierre() {
+	public AgentPierre() throws FileNotFoundException {
 		us = new UltrasonicSensor();
 		d = new Deplacement();
 		ts = new TouchSensor();
@@ -40,7 +44,7 @@ public class agentPierre {
 		cs = new ColorSensor();
 	}
 
-	private boolean marquerPremierPoint() {
+	private boolean marquerPremierPoint() throws FileNotFoundException {
 		Deplacement d = new Deplacement();
 		TouchSensor tsa = new TouchSensor();
 		Pince p = new Pince();
@@ -59,7 +63,7 @@ public class agentPierre {
 		}
 		p.saisiePalet();
 		d.turnLeft(90);
-		d.avancer(); // 20cm
+		d.getPilot().travel(20); //Avance de 20 cm
 		d.turnRight(90);
 		
 		while (cs.getCurrentColor() != "WHITE") {
@@ -76,11 +80,38 @@ public class agentPierre {
 		}
 	}
 	
+	public boolean testMPP() throws FileNotFoundException {
+		
+		Deplacement d = new Deplacement();
+		TouchSensor tsa = new TouchSensor();
+		Pince p = new Pince();
+		ColorSensor cs = new ColorSensor() ;
+		UltrasonicSensor us = new UltrasonicSensor();
+		
+		if (marquerPremierPoint()==true) {
+			System.out.println("Le premier point a été marqué");
+			return true;
+		}
+		
+		if (marquerPremierPoint()==false && cs.getCurrentColor() != "WHITE" && tsa.isPressed()== true) {
+			System.out.println("Le palet est dans les pinces mais n'a pas passé la ligne d'enbut");
+			return false;
+		} 
+		
+		if (marquerPremierPoint()==false && tsa.isPressed()==false) {
+			System.out.println("Le palet n'est pas dans les pinces"); 
+		} return false;
+				
+			
+	}
 	
 	
-	
-	public static void main(String[] args) {
-		//TODO
+	public static void main(String[] args) throws FileNotFoundException {
+		//Test de la fonction marquerPremierPoint
+		
+		
+		
+		
 	}
 
 }
