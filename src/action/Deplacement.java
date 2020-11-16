@@ -55,14 +55,32 @@ public class Deplacement {
 		return position;
 	}
 	/**
-	 * Le robot avance.
+	 * @param distance est la distance à parcourir.
+	 * Le robot avance d'une certaine distance
+	 * @see Deplacement#pilot
+	 */
+	public void avancer(double distance) {
+		pilot.travel(distance);
+	}
+
+	/**
+	 * Le robot avance d'une certaine distance
 	 * @see Deplacement#pilot
 	 */
 	public void avancer() {
 		pilot.forward();
 	}
 	/**
+	 * @param distance est la distance à parcourir.
 	 * Le robot recule.
+	 * @see Deplacement#pilot
+	 */
+	public void reculer(double distance) {
+		pilot.travel(-distance);
+	}
+
+	/**
+	 *  * Le robot recule.
 	 * @see Deplacement#pilot
 	 */
 	public void reculer() {
