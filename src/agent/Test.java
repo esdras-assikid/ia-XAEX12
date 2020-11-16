@@ -25,7 +25,7 @@ public class Test {
 		Brick b = BrickFinder.getDefault();
 		Port s1 = b.getPort("S1");
 		us = new EV3UltrasonicSensor(s1);
-		ultra = new UltrasonicSensor(us.getMode("Distance"));
+		//ultra = new UltrasonicSensor(us.getMode("Distance"));
 		
 		
 		Wheel leftWheel = WheeledChassis.modelWheel(Motor.B,0.056).offset(-0.06075); // 1.5 = diamètre des roues, offset = décalage des roues ??
@@ -45,9 +45,9 @@ public class Test {
 		
 		while (true) {
 			Delay.msDelay(10);
-			currentDistance = ultra.getDistance();
+			//currentDistance = ultra.getDistance();
 			//res = ultra.detectPalet(currentDistance, lastDistance);
-			lastDistance = currentDistance;
+			//lastDistance = currentDistance;
 			
 			if(res) {
 				break;

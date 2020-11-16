@@ -14,6 +14,22 @@ public class Pince {
 	
 	//CONSTRUCTEUR
 	
+	public boolean isEtat() {
+		return etat;
+	}
+
+	public void setEtat(boolean etat) {
+		this.etat = etat;
+	}
+
+	public boolean isaPalet() {
+		return aPalet;
+	}
+
+	public void setaPalet(boolean aPalet) {
+		this.aPalet = aPalet;
+	}
+
 	public Pince() {		
 	}
 	
