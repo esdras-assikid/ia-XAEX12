@@ -1,6 +1,5 @@
 package agent;
 
-import lejos.robotics.geometry.Point;
 import perception.ColorSensor;
 
 public class Etat {
@@ -27,7 +26,7 @@ public class Etat {
 
 
 		public Etat(String couleurLigneProche) {
-				Point point1 = new Point(-0.15f, 0.5f);
+				agent.Point point0 = new P(160, 0.10);
 				Point point2 = new Point(0.4f, 0.5f );
 				Point point3 = new Point(1f , 0.5f);
 				Point point4 = new Point( 1f, 1.1f);
