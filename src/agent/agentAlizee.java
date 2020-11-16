@@ -36,9 +36,14 @@ private void eviterPalets(){
 		if(us.detectPalet() == true && p.isaPalet() == true) {
 			d.stop(); // on s'arrete
 			d.turnLeft(90); // on tourne de 90°
-			d.avancer();
-			Delay.msDelay(50);// il faut voir combien de rotations il faut pour avancer de environ 23 cm
-			d.stop(); // on s'arrête
+			
+			//d.avancer();
+			//Delay.msDelay(50);// il faut voir combien de rotations il faut pour avancer de environ 23 cm
+			//d.stop(); // on s'arrête
+			// ou
+			d.getPilot().travel(0.23);
+			
+			
 			d.turnRight(90); // on se remet dans la position de la direction intiale
 			d.avancer(); // on avance
 		}
@@ -82,11 +87,17 @@ private void eviterPalets(){
 			
 			
 			// puis avancer encore un petit peu avant de s'arrêter, de lacher le palet, de reculer et de fermer les pinces
-			d.avancer();
-			Delay.msDelay(20);
-			d.stop();
+			//d.avancer();
+			//Delay.msDelay(20);
+			//d.stop();
+			
+			d.getPilot().travel(0.20);
 			p.lachePalet();
-			Delay.msDelay(-20);;
+			d.getPilot().travel(-0.20);
+			
+			//d.reculer();
+			//Delay.msDelay(-20);;
+			
 			p.serrer();
 			
 		}
