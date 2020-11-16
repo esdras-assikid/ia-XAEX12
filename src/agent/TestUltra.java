@@ -20,7 +20,6 @@ import perception.TouchSensor;
 import perception.UltrasonicSensor;
 
 
-// recherche le palet le plus proche et se dirige vers lui
 
 public class TestUltra {
 	
@@ -41,9 +40,10 @@ public class TestUltra {
 	public static void main(String[] args) {
 		
 			new TestUltra();
-		
+			
 
 	}
+	
 	
 	public TestUltra() {
 		d = new Deplacement();
@@ -51,7 +51,8 @@ public class TestUltra {
 		d = new Deplacement();
 		ts = new TouchSensor();
 		p = new Pince();
-		rechercherPaletPlusProche();
+		rechercherPaletPlusProche(40);
+		System.out.println(us.getLastDistance());
 	while(true) {
 			
 			if(Button.ESCAPE.isDown()) {
@@ -64,14 +65,18 @@ public class TestUltra {
 		
 	}
 	
-	private float rechercherPaletPlusProche (){
+	
+	
+	
+	
+	private float rechercherPaletPlusProche (int angleDeBalayage){
 		float closestAngle = -1.0f;
 		d.getPilot().setAngularSpeed(45);
-		d.getPilot().rotate(20);; 
-		d.getPilot().rotate(-40, true);
+		d.getPilot().rotate(angleDeBalayage / 2);
+		d.getPilot().rotate(-angleDeBalayage, true);
 		
 		while(d.getPilot().isMoving()) {
-			Delay.msDelay(10); // 50 mesures par sec
+			Delay.msDelay(50); // 50 mesures par sec
 		    us.setCurrentDistance(us.getDistance());
 			if (us.getCurrentDistance() < us.getLastDistance() && us.getCurrentDistance() > 0.310) {
 				us.setLastDistance(us.getCurrentDistance());
@@ -80,26 +85,19 @@ public class TestUltra {
 		}
 		
 		
-		d.getPilot().rotate(40+closestAngle);
+		d.getPilot().rotate(angleDeBalayage+closestAngle);
 		
 		
-		d.getPilot().rotate(10);; 
-		d.getPilot().rotate(-20, true);
 		
-		while(d.getPilot().isMoving()) {
-			Delay.msDelay(10); // 50 mesures par sec
-		    us.setCurrentDistance(us.getDistance());
-			if (us.getCurrentDistance() < us.getLastDistance() && us.getCurrentDistance() > 0.310) {
-				us.setLastDistance(us.getCurrentDistance());
-				closestAngle = d.getPilot().getMovement().getAngleTurned(); // retourne l'angle parcouru depuis que la rotation a commencé
-			}
-		}
 		
-		d.getPilot().rotate(20+closestAngle);
+		
+		
 		
 		return us.getLastDistance();
 	
 	}
+	
+	
 }
 
 
