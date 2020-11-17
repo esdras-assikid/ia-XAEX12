@@ -1,5 +1,6 @@
 package perception;
 
+import agent.DB;
 import lejos.hardware.Brick;
 import lejos.hardware.BrickFinder;
 import lejos.hardware.Button;
@@ -15,7 +16,7 @@ import lejos.robotics.chassis.Wheel;
 import lejos.robotics.chassis.WheeledChassis;
 import lejos.robotics.navigation.MovePilot;
 
-public class TouchSensor {
+public class TouchSensor extends Thread {
 
 	
 	public boolean touch = false;
@@ -24,15 +25,27 @@ public class TouchSensor {
 	private float [] sample;
 	
 	private boolean etat = false;
+	private DB db;
 	
-	public TouchSensor()
+	public TouchSensor(DB db)
     {
 		Brick b = BrickFinder.getDefault();
 		Port s3 = b.getPort("S3");
 		ts = new EV3TouchSensor(s3);
 		source = ts.getTouchMode();
 		sample = new float[source.sampleSize()];
+		this.db = db;
     }
+	
+	public void run() {
+		while(true) {
+			if(db.isPaletDetected()) {
+				if(aEteTouche()) {
+					db.setCmd(DB.SAISIECMD);
+				}
+			}
+		}
+	}
 
     public boolean isPressed()
     {
@@ -68,7 +81,8 @@ public class TouchSensor {
     }	
 	
 	public static void main(String[] args) {
-		TouchSensor ts = new TouchSensor();
+		
+		TouchSensor ts = new TouchSensor(new DB());
 		MovePilot pilot;
 		Wheel leftWheel = WheeledChassis.modelWheel(Motor.B,0.056).offset(-0.06075); // 0.056 = diam�tre des roues, offset = d�calage des roues ??
 		Wheel rightWheel = WheeledChassis.modelWheel(Motor.C, 0.056).offset(0.06075);

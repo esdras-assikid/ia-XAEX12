@@ -12,7 +12,7 @@ public class Agent {
 	
 	// Instance de l'etat de l'environnement
 
-	// Instance de lâ€™Ã©tat de lâ€™environnement
+	// Instance de l’état de l’environnement
 
 		Etat e; 
 	
@@ -27,46 +27,54 @@ public class Agent {
 		
 	//Instance de deplacement
 		Deplacement d;
-		
+		DB db;
+		FollowPath fp;
+		But b;
+		PaletFinder pf;
 		// Constructeur
 		public Agent() throws FileNotFoundException {
 			cs = new ColorSensor();
 			d = new Deplacement();
 			e = new Etat(ColorSensor.BLUE);
-			//us = new UltrasonicSensor();
+			us = new UltrasonicSensor();
+			db = new DB();
+			p = new Pince(db);
+			fp = new FollowPath(e, d, db);
+			b= new But(cs, db);
+			pf = new PaletFinder(us, d, db);
 			
 		}
 		
 		
-		// MÃ©thodes
+		// Méthodes
 		
-		// MÃ©thode pour marquer le premier point
+		// Méthode pour marquer le premier point
 		//private void marquerPremierPoint(){}; 
-	// MÃ©thode pour marquer un point (autre que le premier)
+	// Méthode pour marquer un point (autre que le premier)
 		//private void marquerUnPoint(){}; 
 
 	// Recherche le palet le plus proche et retourne la distance correspondante
 		//private float rechercherPaletPlusProche (){}; 
 
-	// se dirige vers et saisit le palet le plus proche, puis retourne true si un palet a bel et bien Ã©tÃ© saisi
+	// se dirige vers et saisit le palet le plus proche, puis retourne true si un palet a bel et bien été saisi
 	// retourne false sinon
-	// distance = distance du palet le plus proche lors de la dÃ©tection
+	// distance = distance du palet le plus proche lors de la détection
 		//private boolean saisirPaletPlusProche (float distance){}; 
 
-	// S'oriente, se dirige vers la ligne adverse et dÃ©pose le palet 
+	// S'oriente, se dirige vers la ligne adverse et dépose le palet 
 		private void allerAuProchainPoin() {
 			
 		}
 		private void deposerPalet (){};
 
-	// Ã©vite les palets sur le chemin lors de la phase de dÃ©pose
+	// évite les palets sur le chemin lors de la phase de dépose
 		private void eviterPalets (){};
 
 	
 
 
-	// se positionne au milieu d'une ligne de couleur aprÃ¨s avoir marquÃ© un point
-	// (couleur dÃ©pend de la ligne sur laquelle se trouvent les palets les plus proches)
+	// se positionne au milieu d'une ligne de couleur après avoir marqué un point
+	// (couleur dépend de la ligne sur laquelle se trouvent les palets les plus proches)
 		private void positionApresPoint(){
 			e.setIdligneActuel();
 			d.turnRight(90);
@@ -130,7 +138,7 @@ public class Agent {
 			
 		}
 		
-		// se repositionne si palet non touchÃ© lors de la tentative de saisie
+		// se repositionne si palet non touché lors de la tentative de saisie
 
 		//private void seRepositionner (){};
 		
@@ -143,10 +151,19 @@ public class Agent {
 		//20 45 cm
 		//30 48 cm
 		//33 54
+		
 
 		try {
 			Agent a = new Agent();
-			boolean t= true;
+			a.fp.start();
+			a.b.start();
+			a.p.start();
+			a.pf.start();
+			while(!Button.ESCAPE.isDown()) {
+				
+			}
+			System.exit(0);
+			/**boolean t= true;
 			while(t) {
 				a.testEtaT();
 				t=false;
@@ -155,9 +172,9 @@ public class Agent {
 					a.cs.colorSensor.close();
 					a.d.stop();
 					
-					System.exit(0);
+					
 				}
-			}
+			}**/
 			
 			if(Button.ESCAPE.isDown()) {
 				//UltrasonicSensor.us.close();

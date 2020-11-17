@@ -42,54 +42,54 @@ public class ColorSensor {
 			while(colorFileReader.hasNextLine()) {
 				String line = colorFileReader.nextLine();
 				String[] values = line.split(";");
-				System.out.println(values[0]);
+				//System.out.println(values[0]);
 				 if(values[0].equals("green")) {
 					green = new float[3];
 					
 					green[0] = Float.valueOf(values[1]);
 					green[1] = Float.valueOf(values[2]);
 					green[2] = Float.valueOf(values[3]);
-					System.out.println(green[0]);
+					//System.out.println(green[0]);
 					
 				}else if(values[0].equals("grey")) {
 					grey = new float[3];
 					grey[0] = Float.valueOf(values[1]);
 					grey[1] = Float.valueOf(values[2]);
 					grey[2] = Float.valueOf(values[3]);
-					System.out.println(grey[0]);
+					//System.out.println(grey[0]);
 					
 				}else if(values[0].equals("yellow")) {
 					yellow = new float[3];
 					yellow[0] = Float.valueOf(values[1]);
 					yellow[1] = Float.valueOf(values[2]);
 					yellow[2] = Float.valueOf(values[3]);
-					System.out.println(yellow[0]);
+					//System.out.println(yellow[0]);
 				}else if(values[0].equals("red")) {
 					red = new float[3];
 					red[0] = Float.valueOf(values[1]);
 					red[1] = Float.valueOf(values[2]);
 					red[2] = Float.valueOf(values[3]);
-					System.out.println(red[0]);
+					//System.out.println(red[0]);
 				}else if(values[0].equals("blue")) {
 					blue = new float[3];
 					blue[0] = Float.valueOf(values[1]);
 					blue[1] = Float.valueOf(values[2]);
 					blue[2] = Float.valueOf(values[3]);
-					System.out.println(blue[0]);
+					//System.out.println(blue[0]);
 					
 				}else if(values[0].equals("black")) {
 					black = new float[3];
 					black[0] = Float.valueOf(values[1]);
 					black[1] = Float.valueOf(values[2]);
 					black[2] = Float.valueOf(values[3]);
-					System.out.println(black[0]);
+					//System.out.println(black[0]);
 					
 				}else if(values[0].equals("whites")) {
 					white = new float[3];
 					white[0] = Float.valueOf(values[1]);
 					white[1] = Float.valueOf(values[2]);
 					white[2] = Float.valueOf(values[3]);
-					System.out.println(white[0]);
+					//System.out.println(white[0]);
 				}
 				
 				

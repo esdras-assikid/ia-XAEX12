@@ -1,9 +1,10 @@
 package action;
 
 
+import agent.DB;
 import lejos.hardware.motor.Motor;
 
-public class Pince {
+public class Pince extends Thread {
 	
 	//quand on démarre la pince est fermée et le robot n'a pas de palet
 	
@@ -12,7 +13,25 @@ public class Pince {
 	private boolean etat; // true=ouvert VS false=fermé
 	private boolean aPalet; // true=le robot tient le palet VS false
 	
+	private DB db;
 	//CONSTRUCTEUR
+	public Pince(DB db) {
+		this.db = db;
+		
+	}
+	
+	public void run() {
+		while(true) {
+			if(db.getCmd()== DB.GOTOPALETCMD  && !etat) {
+				this.deserrer();
+				
+			}
+			if(db.getCmd() ==DB.SAISIECMD) {
+				this.saisiePalet();
+				db.setCmd(DB.DIRECTIONBUTCMD);
+			}
+		}
+	}
 	
 	public boolean isEtat() {
 		return etat;
@@ -30,8 +49,7 @@ public class Pince {
 		this.aPalet = aPalet;
 	}
 
-	public Pince() {		
-	}
+	
 	
 	//METHODES
 	
@@ -75,7 +93,7 @@ public class Pince {
 	//TESTS
 	
 	public static void main(String[] args) {
-		Pince pince = new Pince();
+		Pince pince = new Pince(new DB());
 		pince.deserrer();
 		pince.saisiePalet();
 		pince.lachePalet();

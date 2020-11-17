@@ -23,20 +23,23 @@ public class Etat {
 		public Ligne ligneLoin ;
 		public Ligne ligneMilieu; 
 		private int idligneActuel;
+		
+		public static int LEFT=-1;
+		public static int RIGHT=1;
 
 
 		public Etat(String couleurLigneProche) {
-				agent.Point point0 = new P(160, 0.10);
-				Point point2 = new Point(0.4f, 0.5f );
-				Point point3 = new Point(1f , 0.5f);
-				Point point4 = new Point( 1f, 1.1f);
-				Point point5 = new Point(0.5f, 1.1f);
-				Point point6 = new Point(0f, 1.1f);
-				Point point7 = new Point(0.5f, 1.8f);
-				Point point8 = new Point(1f, 1.8f);
+				Point point1 = new Point(160, 0.10, RIGHT);
+				Point point2 = new Point(126, 0.13,RIGHT );
+				Point point3 = new Point(126 , 0.13, RIGHT);
+				Point point4 = new Point( 180, 0.5,RIGHT);
+				//Point point5 = new Point(0.5f, 1.1f);
+				//Point point6 = new Point(0f, 1.1f);
+				//Point point7 = new Point(0.5f, 1.8f);
+				//Point point8 = new Point(1f, 1.8f);
 				
 				
-				circuit = new Point[]{point1,point2, point3, point4,point5, point6, point7, point8 };
+				circuit = new Point[]{point1,point2, point3, point4 /**,point5, point6, point7, point8**/ };
 				idPointActuel = 0;
 				
 				ligneProche = new Ligne(couleurLigneProche, idLigneProche);
@@ -116,13 +119,16 @@ public class Etat {
 		 * marqué un point
 		 */
 		public int getAngleFromPointMarquage() {
-			if(idPointActuel <7) {
-				Point lastpoint = circuit[idPointActuel];
-				Point nextpoint = circuit[idPointActuel+1];
-				if(idPointActuel==0) {
-					return  (int) (((nextpoint.angle())*180) / Math.PI) ;
-				}
-				return (int) (((nextpoint.angleTo(new Point(lastpoint.x, 0f)))*180) / Math.PI);
+			if(idPointActuel <4) {
+				return circuit[idPointActuel].getAngle();
+									
+			}	
+			return 0;	
+		}
+		
+		public int getCurrentPointOrientation() {
+			if(idPointActuel <4) {
+				return circuit[idPointActuel].getOrientation();
 									
 			}	
 			return 0;	
@@ -133,14 +139,9 @@ public class Etat {
 		 * palet n'est pas à la position précédente
 		 *
 		 */
-		public int getAngleFromPointNotFound() {
-			if(idPointActuel <7) {
-				Point lastpoint = circuit[idligneActuel];
-				Point nextpoint = circuit[idligneActuel+1];
-				if(idligneActuel==0) {
-					return  (int) (((nextpoint.angleTo(new Point(0f, 0.6f)))*180) / Math.PI) ;
-				}
-				return (int) (((nextpoint.angleTo(lastpoint))*180) / Math.PI);
+		public double getDistanceToPoint() {
+			if(idPointActuel <4) {
+				return circuit[idPointActuel].getDistance();
 									
 			}	
 			return 0;	

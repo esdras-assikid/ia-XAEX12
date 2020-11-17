@@ -4,14 +4,25 @@ public class Point {
 	//angle en degre pour se mettre dans la bonne position depuis la ligne de but
 	private int angle;
 	
+	
+	
+	private int orientation;
+	
 	//la distance minimale à parcourir avant de faire la recherche de palet
 	private double distance;
+	
+	public static float maxDistanceToPoint = 0.49f;
+	
+	
 	
 
 
 
-	public Point(int angle, double distance) {
+	public Point(int angle, double distance, int orientation) {
 		// TODO Auto-generated constructor stub
+		this.angle = angle;
+		this.distance = distance;
+		this.orientation = orientation;
 	}
 	
 
@@ -28,6 +39,11 @@ public class Point {
 	 */
 	public double getDistance() {
 		return distance;
+	}
+
+
+	public int getOrientation() {
+		return orientation;
 	}
 
 }
