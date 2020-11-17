@@ -125,6 +125,14 @@ public class Deplacement {
 		if (position<0)
 			position=360+position;
 	}
+	
+	public void retourPositionInitial() {
+		if (position < 180) {
+			turnLeft(position);
+		}else {
+			turnRight(360-position);
+		}
+	}
 }
 
 

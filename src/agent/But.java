@@ -1,5 +1,6 @@
 package agent;
 
+import lejos.utility.Delay;
 import perception.ColorSensor;
 
 public class But extends Thread{
@@ -15,9 +16,11 @@ public class But extends Thread{
 	public void run() {
 		while(true) {
 			if(db.getCmd()==DB.GOTOBUTCMD) {
-				if(cs.changeColor().equals(ColorSensor.WHITE)) {
-					db.setCmd(DB.BUTCMD);
+				while(!cs.changeColor().equals(ColorSensor.WHITE)) {
+					Delay.msDelay(10);
+					
 				}
+				db.setCmd(DB.BUTCMD);
 			}
 		}
 	}

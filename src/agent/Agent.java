@@ -42,6 +42,7 @@ public class Agent {
 			fp = new FollowPath(e, d, db);
 			b= new But(cs, db);
 			pf = new PaletFinder(us, d, db);
+			ts = new TouchSensor(db);
 			
 		}
 		
@@ -159,6 +160,7 @@ public class Agent {
 			a.b.start();
 			a.p.start();
 			a.pf.start();
+			a.ts.start();
 			while(!Button.ESCAPE.isDown()) {
 				
 			}

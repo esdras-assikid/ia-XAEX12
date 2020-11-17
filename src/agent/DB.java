@@ -7,10 +7,11 @@ public class DB {
 	public static int POINTCMD = 0;
 	public static int SEARCHCMD =1;
 	public static int GOTOPALETCMD = 2;
+	public static int AFTEROPENPINCECMD = 7;
 	public static int SAISIECMD = 3;
-	public static int DIRECTIONBUTCMD = 3;
-	public static int GOTOBUTCMD = 4;
-	public static int BUTCMD = 5;
+	public static int DIRECTIONBUTCMD = 4;
+	public static int GOTOBUTCMD = 5;
+	public static int BUTCMD = 6;
 	
 	private int cmd=0;
 

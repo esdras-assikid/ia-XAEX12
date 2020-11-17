@@ -20,7 +20,7 @@ public class PaletFinder extends Thread {
 		float closestAngle = -1.0f;
 		d.getPilot().setAngularSpeed(45);
 		d.getPilot().rotate(angleDeBalayage / 2);
-		d.getPilot().rotate(-angleDeBalayage, true);
+		d.getPilot().rotate(-angleDeBalayage,true);
 		
 		while(d.getPilot().isMoving()) {
 			Delay.msDelay(50); // 50 mesures par sec
@@ -33,6 +33,7 @@ public class PaletFinder extends Thread {
 		
 		
 		d.getPilot().rotate(angleDeBalayage+closestAngle);
+		d.modifierPosition( Math.round(angleDeBalayage+closestAngle));
 			
 		return us.getLastDistance();
 	
@@ -48,13 +49,19 @@ public class PaletFinder extends Thread {
 			if(db.getCmd()== DB.GOTOPALETCMD) {
 				us.setCurrentDistance(us.getDistance());
 				if(us.detectPalet())
+					d.stop();
 					db.setPaletDetected(true);
 				us.setLastDistance(us.getCurrentDistance()); 
 				Delay.msDelay(50);
 				
 			}
-			if(db.getCmd()==DB.SAISIECMD) {
-				d.stop();
+			
+			if(db.getCmd()==DB.GOTOBUTCMD) {
+				d.avancer();
+				while(db.getCmd() != DB.BUTCMD) {
+					
+				}
+				//d.stop();
 				
 			}
 		}

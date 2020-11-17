@@ -22,12 +22,14 @@ public class Pince extends Thread {
 	
 	public void run() {
 		while(true) {
-			if(db.getCmd()== DB.GOTOPALETCMD  && !etat) {
+			if(db.isPaletDetected() && !etat) {
 				this.deserrer();
+				db.setCmd(DB.AFTEROPENPINCECMD);
 				
 			}
-			if(db.getCmd() ==DB.SAISIECMD) {
+			if(db.getCmd() ==DB.SAISIECMD && !aPalet) {
 				this.saisiePalet();
+				
 				db.setCmd(DB.DIRECTIONBUTCMD);
 			}
 		}
@@ -74,7 +76,7 @@ public class Pince extends Thread {
 	//l'attribut etat n'est ni true ni false car la pince est entre-ouverte
 	public void saisiePalet() {
 		if (etat==true) {
-			Motor.A.rotate(-900);
+			Motor.A.rotate(-910);
 			aPalet=true;	
 		}
 	}

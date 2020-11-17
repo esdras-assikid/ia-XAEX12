@@ -21,7 +21,7 @@ public class FollowPath extends Thread {
 			
 		}
 		d.avancer(e.getDistanceToPoint());
-		db.setCmd(1);
+		db.setCmd(DB.SEARCHCMD);
 		
 	}
 	private void marquerPoint() {
@@ -41,28 +41,36 @@ public class FollowPath extends Thread {
 				
 			}
 			if(db.getCmd()==DB.GOTOPALETCMD && b) {
-				d.avancer(db.getDistanceToPalet());
-				while(d.getPilot().isMoving()) {
+				d.avancer();
+				while(!db.isPaletDetected()) {
 					
 				}
 				b=false;
-				
+			}
+			if(db.getCmd()==DB.AFTEROPENPINCECMD) {
+				d.avancer();
+				while(db.getCmd()== DB.AFTEROPENPINCECMD) {
+					
+				}
+				b=false;
 			}
 			if(db.getCmd()==DB.SAISIECMD) {
 				d.stop();
 				
 			}
 			if(db.getCmd() == DB.DIRECTIONBUTCMD) {
-				d.turnRight(e.getAngleFromPointMarquage());
+				System.out.println(d.getPosition());
+				
+				d.retourPositionInitial();
 				while(d.getPilot().isMoving()) {
 					
 				}
 				db.setCmd(DB.GOTOBUTCMD);
 			}
-			if(db.getCmd() == DB.GOTOBUTCMD) {
+			/**if(db.getCmd() == DB.GOTOBUTCMD) {
 				d.avancer();
 				Delay.msDelay(50);
-			}
+			}**/
 			if(db.getCmd()==DB.BUTCMD) {
 				d.stop();
 			}
