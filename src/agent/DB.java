@@ -4,6 +4,9 @@ public class DB {
 	private boolean paletDetected = false;
 	private float distanceToPalet = 0f;
 	
+	private float distanceMAX = 0.45f;
+	
+	
 	public static int POINTCMD = 0;
 	public static int SEARCHCMD =1;
 	public static int GOTOPALETCMD = 2;
@@ -12,6 +15,7 @@ public class DB {
 	public static int DIRECTIONBUTCMD = 4;
 	public static int GOTOBUTCMD = 5;
 	public static int BUTCMD = 6;
+	public static int RESETPOSITIONCMD = 8;
 	
 	private int cmd=0;
 
@@ -41,6 +45,20 @@ public class DB {
 
 	public void setDistanceToPalet(float distanceToPalet) {
 		this.distanceToPalet = distanceToPalet;
+	}
+
+	/**
+	 * @return the distanceMAX
+	 */
+	public float getDistanceMAX() {
+		return distanceMAX;
+	}
+
+	/**
+	 * @param distanceMAX the distanceMAX to set
+	 */
+	public void setDistanceMAX(float distanceMAX) {
+		this.distanceMAX = distanceMAX;
 	}
 
 }

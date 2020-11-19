@@ -38,6 +38,14 @@ public class Deplacement {
 		Chassis chassis = new WheeledChassis(new Wheel[] {leftWheel, rightWheel}, WheeledChassis.TYPE_DIFFERENTIAL);
 		pilot = new MovePilot(chassis);
 		pilot.setAngularSpeed(90);
+		
+	}
+
+	/**
+	 * @param position the position to set
+	 */
+	public void setPosition(int position) {
+		this.position = position;
 	}
 
 	/**
@@ -131,6 +139,14 @@ public class Deplacement {
 			turnLeft(position);
 		}else {
 			turnRight(360-position);
+		}
+	}
+	
+	public void gotoPosition180() {
+		if(position < 180) {
+			turnRight(180-position);
+		}else {
+			turnLeft(position-180); 
 		}
 	}
 }

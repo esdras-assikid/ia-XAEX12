@@ -17,20 +17,38 @@ public class Pince extends Thread {
 	//CONSTRUCTEUR
 	public Pince(DB db) {
 		this.db = db;
+		etat = false;
+		aPalet = false;
 		
 	}
 	
 	public void run() {
 		while(true) {
-			if(db.isPaletDetected() && !etat) {
-				this.deserrer();
-				db.setCmd(DB.AFTEROPENPINCECMD);
+			if(db.getCmd() == DB.SEARCHCMD) {
+				if(!etat) {
+					this.deserrer();
+				}
+				if(db.isPaletDetected()) {
+					db.setCmd(DB.AFTEROPENPINCECMD);
+				}
 				
+			}
+			if(db.getCmd() == DB.GOTOPALETCMD) {
+				if(db.isPaletDetected()) {
+					db.setCmd(DB.AFTEROPENPINCECMD);
+				}
+			}
+			if(db.getCmd()==DB.POINTCMD && etat) {
+				this.serrer();
 			}
 			if(db.getCmd() ==DB.SAISIECMD && !aPalet) {
 				this.saisiePalet();
-				
 				db.setCmd(DB.DIRECTIONBUTCMD);
+			}
+			if(db.getCmd() == DB.BUTCMD) {
+				this.lachePalet();
+				db.setCmd(DB.POINTCMD);
+				//System.out.print(db.getCmd());
 			}
 		}
 	}
@@ -59,7 +77,7 @@ public class Pince extends Thread {
 	//l'attribut etat est donc false=fermé
 	//(l'attribut apalet est false)
 	public void serrer() {		
-		Motor.A.rotate(-950);
+		Motor.A.rotate(-900);
 		etat=false;	
 	}
 	
@@ -76,7 +94,7 @@ public class Pince extends Thread {
 	//l'attribut etat n'est ni true ni false car la pince est entre-ouverte
 	public void saisiePalet() {
 		if (etat==true) {
-			Motor.A.rotate(-910);
+			Motor.A.rotate(-900);
 			aPalet=true;	
 		}
 	}

@@ -11,20 +11,34 @@ public class Point {
 	//la distance minimale à parcourir avant de faire la recherche de palet
 	private double distance;
 	
-	public static float maxDistanceToPoint = 0.49f;
-	
+	private float distanceMax = 0.49f;
 	
 	
 
-
-
-	public Point(int angle, double distance, int orientation) {
+	public Point(int angle, double distance, float distanceMax, int orientation) {
 		// TODO Auto-generated constructor stub
 		this.angle = angle;
 		this.distance = distance;
 		this.orientation = orientation;
+		this.distanceMax = distanceMax;
 	}
 	
+
+	/**
+	 * @return the distanceMax
+	 */
+	public float getDistanceMax() {
+		return distanceMax;
+	}
+
+
+	/**
+	 * @param distanceMax the distanceMax to set
+	 */
+	public void setDistanceMax(float distanceMax) {
+		this.distanceMax = distanceMax;
+	}
+
 
 	/**
 	 * @return the angle
@@ -45,5 +59,9 @@ public class Point {
 	public int getOrientation() {
 		return orientation;
 	}
+	
+	
+	
+	
 
 }

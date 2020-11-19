@@ -157,7 +157,7 @@ public class Agent {
 		try {
 			Agent a = new Agent();
 			a.fp.start();
-			a.b.start();
+			//a.b.start();
 			a.p.start();
 			a.pf.start();
 			a.ts.start();

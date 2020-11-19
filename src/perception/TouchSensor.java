@@ -43,7 +43,9 @@ public class TouchSensor extends Thread {
 				System.out.print("CA MARCHE");
 				if(aEteTouche()) {
 					System.out.print("CA MARCHE AUSSI");
+					db.setPaletDetected(false);
 					db.setCmd(DB.SAISIECMD);
+					this.etat=false;
 				}
 			}
 		}

@@ -16,11 +16,18 @@ public class FollowPath extends Thread {
 		
 	}
 	private void allerAuPointSvt() {
+		System.out.println("POINT ");
 		d.turnRight(e.getAngleFromPointMarquage());
 		while(d.getPilot().isMoving()) {
-			
+			//
 		}
-		d.avancer(e.getDistanceToPoint());
+		if(e.getDistanceToPoint() !=0) {
+			d.avancer(e.getDistanceToPoint());
+			while(d.getPilot().isMoving()) {
+				//
+			}
+		}
+		
 		db.setCmd(DB.SEARCHCMD);
 		
 	}
@@ -31,6 +38,50 @@ public class FollowPath extends Thread {
 		}
 		d.avancer();
 	}
+	public void seRepositionnerIfNotFound() {
+		if(e.getIdPointActuel() == 0) {
+			d.turnLeft(45);
+			while(d.getPilot().isMoving()) {
+				
+			}
+			d.avancer(0.1);
+			while(d.getPilot().isMoving()) {
+				
+			}
+			e.pointNotFound.add(e.getCurrentPoint());
+			e.setIdPointActuel(1);
+			db.setDistanceMAX(0.70f);
+			db.setCmd(DB.SEARCHCMD);
+			
+		}
+		if(e.getIdPointActuel() == 1) {
+			e.pointNotFound.add(e.getCurrentPoint());
+			d.avancer(0.4);
+			while(d.getPilot().isMoving()) {
+				
+			}
+			db.setCmd(DB.SEARCHCMD);
+			e.setIdPointActuel(2);
+
+			
+		}
+		if(e.getIdPointActuel() ==2) {
+			e.pointNotFound.add(e.getCurrentPoint());
+			d.gotoPosition180();
+			while(d.getPilot().isMoving()) {
+				
+			}
+			d.avancer(0.4);
+			while(d.getPilot().isMoving()) {
+				
+			}
+			e.setIdPointActuel(3);
+			d.turnLeft(20);
+			db.setCmd(DB.SEARCHCMD);
+			
+		}
+		
+	}
 	
 	@Override
 	public void run() {
@@ -38,14 +89,23 @@ public class FollowPath extends Thread {
 		while(true) {
 			if(db.getCmd() == DB.POINTCMD) {
 				allerAuPointSvt();
-				
+				b=true;
 			}
 			if(db.getCmd()==DB.GOTOPALETCMD && b) {
-				d.avancer();
-				while(!db.isPaletDetected()) {
-					
+				System.out.print(db.getDistanceToPalet());
+				if(db.getDistanceToPalet() > e.getDistanceMAX()) {
+					//this.seRepositionnerIfNotFound();
+				}else {
+					//System.out.println(db.getDistanceToPalet());
+					d.avancer(db.getDistanceToPalet()+0.05);
+					while(d.getPilot().isMoving()) {
+						
+					}
+					if(db.isPaletDetected())
+					b=false;
 				}
-				b=false;
+				
+				
 			}
 			if(db.getCmd()==DB.AFTEROPENPINCECMD) {
 				d.avancer();
@@ -62,6 +122,7 @@ public class FollowPath extends Thread {
 				System.out.println(d.getPosition());
 				
 				d.retourPositionInitial();
+				e.setIdPointActuel(e.getIdPointActuel()+1);
 				while(d.getPilot().isMoving()) {
 					
 				}
@@ -70,10 +131,13 @@ public class FollowPath extends Thread {
 			/**if(db.getCmd() == DB.GOTOBUTCMD) {
 				d.avancer();
 				Delay.msDelay(50);
-			}**/
-			if(db.getCmd()==DB.BUTCMD) {
+				if(db.getCmd()==DB.BUTCMD) {
 				d.stop();
+				
+				
 			}
+			}**/
+			
 		}
 		
 	}

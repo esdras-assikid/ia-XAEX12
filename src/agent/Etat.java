@@ -1,5 +1,7 @@
 package agent;
 
+import java.util.ArrayList;
+
 import perception.ColorSensor;
 
 public class Etat {
@@ -13,6 +15,8 @@ public class Etat {
 		
 		private Point[] circuit;
 		private int idPointActuel;
+		
+		public ArrayList<Point> pointNotFound;
 
 	// Tableau d'objets contenant 2 valeurs : 
 	// 1 String désignant la couleur et 1 int désignant le nombre de points restant pouvant probablement être pris pour chacune des lignes
@@ -29,10 +33,10 @@ public class Etat {
 
 
 		public Etat(String couleurLigneProche) {
-				Point point1 = new Point(160, 0.10, RIGHT);
-				Point point2 = new Point(126, 0.13,RIGHT );
-				Point point3 = new Point(126 , 0.13, RIGHT);
-				Point point4 = new Point( 180, 0.5,RIGHT);
+				Point point1 = new Point(160, 0, 0.50f,  RIGHT);
+				Point point2 = new Point(126, 0.15, 0.70f, RIGHT );
+				Point point3 = new Point(126 , 0.13, 0.45f, RIGHT);
+				Point point4 = new Point( 180, 0.5, 0.45f,RIGHT);
 				//Point point5 = new Point(0.5f, 1.1f);
 				//Point point6 = new Point(0f, 1.1f);
 				//Point point7 = new Point(0.5f, 1.8f);
@@ -41,7 +45,7 @@ public class Etat {
 				
 				circuit = new Point[]{point1,point2, point3, point4 /**,point5, point6, point7, point8**/ };
 				idPointActuel = 0;
-				
+				pointNotFound = new ArrayList<Point>() ;
 				ligneProche = new Ligne(couleurLigneProche, idLigneProche);
 				ligneMilieu = new Ligne(ColorSensor.BLACK, idLigneMilieu);
 				idligneActuel = idLigneProche;
@@ -55,11 +59,19 @@ public class Etat {
 			
 		}
 		
+		public float getDistanceMAX() {
+			return circuit[idPointActuel].getDistanceMax();
+		}
+		
 		/**
 		 * @return the idPointActuel
 		 */
 		public int getIdPointActuel() {
 			return idPointActuel;
+		}
+		
+		public Point getCurrentPoint() {
+			return circuit[idligneActuel];
 		}
 
 		/**
@@ -146,6 +158,8 @@ public class Etat {
 			}	
 			return 0;	
 		}
+
+		
 	
 	
 
