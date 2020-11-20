@@ -112,21 +112,25 @@ public class FollowPath extends Thread {
 				while(db.getCmd()== DB.AFTEROPENPINCECMD) {
 					
 				}
-				b=false;
+				d.stop();//b=false;
 			}
 			if(db.getCmd()==DB.SAISIECMD) {
 				d.stop();
 				
 			}
 			if(db.getCmd() == DB.DIRECTIONBUTCMD) {
-				System.out.println(d.getPosition());
-				
-				d.retourPositionInitial();
-				e.setIdPointActuel(e.getIdPointActuel()+1);
-				while(d.getPilot().isMoving()) {
+				//System.out.println(d.getPosition());
+				if(e.getIdPointActuel() ==0) {
 					
+				}else {
+					d.retourPositionInitial();
+					e.setIdPointActuel(e.getIdPointActuel()+1);
+					while(d.getPilot().isMoving()) {
+						
+					}
+					db.setCmd(DB.GOTOBUTCMD);
 				}
-				db.setCmd(DB.GOTOBUTCMD);
+				
 			}
 			/**if(db.getCmd() == DB.GOTOBUTCMD) {
 				d.avancer();

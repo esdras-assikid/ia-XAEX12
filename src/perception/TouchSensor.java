@@ -25,6 +25,20 @@ public class TouchSensor extends Thread {
 	private float [] sample;
 	
 	private boolean etat = false;
+	/**
+	 * @return the etat
+	 */
+	public boolean isEtat() {
+		return etat;
+	}
+
+	/**
+	 * @param etat the etat to set
+	 */
+	public void setEtat(boolean etat) {
+		this.etat = etat;
+	}
+
 	private DB db;
 	
 	public TouchSensor(DB db)

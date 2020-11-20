@@ -17,7 +17,7 @@ public class DB {
 	public static int BUTCMD = 6;
 	public static int RESETPOSITIONCMD = 8;
 	
-	private int cmd=0;
+	private int cmd=-1;
 
 	public DB() {
 		// TODO Auto-generated constructor stub

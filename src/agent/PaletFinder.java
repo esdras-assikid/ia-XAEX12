@@ -88,11 +88,12 @@ public class PaletFinder extends Thread {
 			}
 			
 			if(db.getCmd()==DB.GOTOBUTCMD) {
-				d.avancer(0.4);
-				while(d.getPilot().isMoving()) {
+				d.avancer();
+				while(db.getCmd()==DB.GOTOBUTCMD) {
 					
 				}
-				db.setCmd(DB.BUTCMD);
+				d.stop();
+				//db.setCmd(DB.BUTCMD);
 				//d.stop();
 				
 			}

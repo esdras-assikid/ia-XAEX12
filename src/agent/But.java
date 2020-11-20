@@ -17,7 +17,7 @@ public class But extends Thread{
 		while(true) {
 			if(db.getCmd()==DB.GOTOBUTCMD) {
 				while(!cs.changeColor().equals(ColorSensor.WHITE)) {
-					Delay.msDelay(10);
+					Delay.msDelay(5);
 					
 				}
 				db.setCmd(DB.BUTCMD);

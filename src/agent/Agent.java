@@ -4,6 +4,7 @@ import java.io.FileNotFoundException;
 
 import action.*;
 import lejos.hardware.Button;
+import lejos.hardware.motor.Motor;
 import lejos.utility.Delay;
 import perception.*;
 
@@ -64,6 +65,49 @@ public class Agent {
 
 	// S'oriente, se dirige vers la ligne adverse et dépose le palet 
 		private void allerAuProchainPoin() {
+			
+		}
+		
+		private void marquerPremierPoint() {
+			d.avancer();
+			p.deserrer();
+			while (us.getDistance() > 0.350) {
+				Delay.msDelay(30);
+			}
+			
+			boolean touch=false;
+			while(!touch) {
+				if(ts.aEteTouche()) {
+					touch = true;
+				}
+			}
+			d.stop();
+			ts.setEtat(false);
+			p.saisiePalet();
+			d.turnLeft(40);
+			while(d.getPilot().isMoving()) {
+				
+			}
+			d.avancer(0.2);
+			while(d.getPilot().isMoving()) {
+				
+			}
+			d.turnRight(41);
+			while(d.getPilot().isMoving()) {
+				
+			}
+			d.avancer();
+			while(!cs.changeColor().equals(ColorSensor.WHITE)) {
+				Delay.msDelay(5);	
+			}
+			d.stop();
+			p.lachePalet();
+			while(Motor.A.isMoving()) {
+				
+			}
+			db.setCmd(DB.POINTCMD);
+			
+			
 			
 		}
 		private void deposerPalet (){};
@@ -157,10 +201,11 @@ public class Agent {
 		try {
 			Agent a = new Agent();
 			a.fp.start();
-			//a.b.start();
+			a.b.start();
 			a.p.start();
 			a.pf.start();
 			a.ts.start();
+			a.marquerPremierPoint();
 			while(!Button.ESCAPE.isDown()) {
 				
 			}

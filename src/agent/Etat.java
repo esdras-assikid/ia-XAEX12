@@ -33,18 +33,19 @@ public class Etat {
 
 
 		public Etat(String couleurLigneProche) {
+				Point point0 = new Point(30, 0.3,0.5f, RIGHT);
 				Point point1 = new Point(160, 0, 0.50f,  RIGHT);
 				Point point2 = new Point(126, 0.15, 0.70f, RIGHT );
-				Point point3 = new Point(126 , 0.13, 0.45f, RIGHT);
-				Point point4 = new Point( 180, 0.5, 0.45f,RIGHT);
-				//Point point5 = new Point(0.5f, 1.1f);
-				//Point point6 = new Point(0f, 1.1f);
+				Point point3 = new Point(126 , 0.13, 0.85f, RIGHT);
+				Point point4 = new Point( 180, 0.6, 0.45f,RIGHT);
+				Point point5 = new Point(180, 0.6, 0.5f, RIGHT);
+				Point point6 = new Point(180, 0.6, 0.75f, LEFT);
 				//Point point7 = new Point(0.5f, 1.8f);
 				//Point point8 = new Point(1f, 1.8f);
 				
 				
-				circuit = new Point[]{point1,point2, point3, point4 /**,point5, point6, point7, point8**/ };
-				idPointActuel = 0;
+				circuit = new Point[]{point0, point1,point2, point3, point4,point5, point6, /**,point5, point6, point7, point8**/ };
+				idPointActuel = 1;
 				pointNotFound = new ArrayList<Point>() ;
 				ligneProche = new Ligne(couleurLigneProche, idLigneProche);
 				ligneMilieu = new Ligne(ColorSensor.BLACK, idLigneMilieu);

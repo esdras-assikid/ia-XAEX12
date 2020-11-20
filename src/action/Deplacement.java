@@ -37,7 +37,7 @@ public class Deplacement {
 		Wheel rightWheel = WheeledChassis.modelWheel(Motor.C, 0.056).offset(0.06075);
 		Chassis chassis = new WheeledChassis(new Wheel[] {leftWheel, rightWheel}, WheeledChassis.TYPE_DIFFERENTIAL);
 		pilot = new MovePilot(chassis);
-		pilot.setAngularSpeed(90);
+		pilot.setAngularSpeed(45);
 		
 	}
 
