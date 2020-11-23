@@ -88,7 +88,7 @@ public class Agent {
 			while(d.getPilot().isMoving()) {
 				
 			}
-			d.avancer(0.2);
+			d.avancer(0.3);
 			while(d.getPilot().isMoving()) {
 				
 			}
