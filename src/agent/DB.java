@@ -16,10 +16,18 @@ public class DB {
 	public static int GOTOBUTCMD = 5;
 	public static int BUTCMD = 6;
 	public static int RESETPOSITIONCMD = 8;
+	public static int CALIBRATECMD = 9;
 	
-	private int cmd=-1;
+	
+	public static int FIRSTPOINTCMD = 11;
+	public static int FIRSTSAISIECMD = 12;
+	public static int FIRSTDIRECTIONCMD = 13;
+	
+	
+	private int cmd;
 
 	public DB() {
+		cmd = FIRSTPOINTCMD;
 		// TODO Auto-generated constructor stub
 	}
 

@@ -24,7 +24,7 @@ public class Deplacement {
 	 * La valeur zéro correspond au robot tourné vers le nord, sur la ligne de départ, face à la ligne adverse.
 	 * @see Deplacement#getPosition()
 	 */
-	private int position = 0;
+	private double position = 0;
 
 
 	/**
@@ -44,7 +44,7 @@ public class Deplacement {
 	/**
 	 * @param position the position to set
 	 */
-	public void setPosition(int position) {
+	public void setPosition(double position) {
 		this.position = position;
 	}
 
@@ -59,7 +59,7 @@ public class Deplacement {
 	 * Retourne la position.
 	 * @return la position de type entier.
 	 */
-	public int getPosition() {
+	public double getPosition() {
 		return position;
 	}
 	/**
@@ -107,7 +107,7 @@ public class Deplacement {
 	 * @param angle est l'angle de rotation du robot.
 	 * @see Deplacement#position
 	 */
-	public void turnLeft(int angle) {
+	public void turnLeft(double angle) {
 		pilot.rotate(-angle,true);
 		modifierPosition(-angle);
 	}
@@ -117,7 +117,7 @@ public class Deplacement {
 	 * @param angle
 	 * @see Deplacement#position
 	 */
-	public void turnRight(int angle) {
+	public void turnRight(double angle) {
 		pilot.rotate(angle,true);
 		modifierPosition(angle);
 	}
@@ -126,7 +126,7 @@ public class Deplacement {
 	 * @param angle est l'angle de rotation.
 	 * @see Deplacement#position
 	 */
-	public void modifierPosition(int angle) {
+	public void modifierPosition(double angle) {
 		position+=angle;
 		if (position>=360)
 			position-=360;

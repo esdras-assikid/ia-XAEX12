@@ -34,9 +34,9 @@ public class Etat {
 
 		public Etat(String couleurLigneProche) {
 				Point point0 = new Point(30, 0.3,0.5f, RIGHT);
-				Point point1 = new Point(160, 0, 0.50f,  RIGHT);
-				Point point2 = new Point(126, 0.15, 0.70f, RIGHT );
-				Point point3 = new Point(126 , 0.13, 0.85f, RIGHT);
+				Point point1 = new Point(160, 0, 0.65f,  RIGHT);
+				Point point2 = new Point(135, 0.15, 0.70f, RIGHT );
+				Point point3 = new Point(135 , 0.13, 0.85f, RIGHT);
 				Point point4 = new Point( 180, 0.6, 0.45f,RIGHT);
 				Point point5 = new Point(180, 0.6, 0.5f, RIGHT);
 				Point point6 = new Point(180, 0.6, 0.75f, LEFT);
@@ -58,6 +58,10 @@ public class Etat {
 					throw new IllegalArgumentException("la couleur de la ligne n'est pas bonne");
 				}
 			
+		}
+		
+		public void setPointDistanceMAX(float d) {
+			circuit[idPointActuel].setDistanceMax(d);
 		}
 		
 		public float getDistanceMAX() {
@@ -131,7 +135,7 @@ public class Etat {
 		 * Recupère l'angle de la position actuel par rapport au prochain point après avoir
 		 * marqué un point
 		 */
-		public int getAngleFromPointMarquage() {
+		public double getAngleFromPointMarquage() {
 			if(idPointActuel <4) {
 				return circuit[idPointActuel].getAngle();
 									

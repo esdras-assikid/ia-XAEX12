@@ -69,17 +69,12 @@ public class Agent {
 		}
 		
 		private void marquerPremierPoint() {
-			d.avancer();
-			p.deserrer();
-			while (us.getDistance() > 0.350) {
-				Delay.msDelay(30);
-			}
 			
-			boolean touch=false;
-			while(!touch) {
-				if(ts.aEteTouche()) {
-					touch = true;
-				}
+			p.deserrer();
+			
+			
+			while(!ts.aEteTouche()) {
+				
 			}
 			d.stop();
 			ts.setEtat(false);
@@ -200,12 +195,13 @@ public class Agent {
 
 		try {
 			Agent a = new Agent();
+			//a.marquerPremierPoint();
 			a.fp.start();
 			a.b.start();
 			a.p.start();
 			a.pf.start();
 			a.ts.start();
-			a.marquerPremierPoint();
+			
 			while(!Button.ESCAPE.isDown()) {
 				
 			}

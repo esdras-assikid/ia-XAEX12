@@ -24,7 +24,7 @@ public class TouchSensor extends Thread {
 	private SampleProvider source;
 	private float [] sample;
 	
-	private boolean etat = false;
+	private boolean etat;
 	/**
 	 * @return the etat
 	 */
@@ -48,12 +48,22 @@ public class TouchSensor extends Thread {
 		ts = new EV3TouchSensor(s3);
 		source = ts.getTouchMode();
 		sample = new float[source.sampleSize()];
+		etat=false;
 		this.db = db;
     }
 	
 	public void run() {
 		while(true) {
-			if(db.isPaletDetected() && db.getCmd()==DB.AFTEROPENPINCECMD) {
+			if(db.getCmd()==DB.FIRSTPOINTCMD) {
+				if(aEteTouche()) {
+					System.out.print("CA MARCHE AUSSI");
+					db.setPaletDetected(false);
+					db.setCmd(DB.FIRSTSAISIECMD);
+					this.etat=false;
+				}
+
+			}
+			if(db.isPaletDetected() && (db.getCmd()==DB.GOTOPALETCMD ||db.getCmd()==DB.AFTEROPENPINCECMD)) {
 				System.out.print("CA MARCHE");
 				if(aEteTouche()) {
 					System.out.print("CA MARCHE AUSSI");
@@ -62,6 +72,7 @@ public class TouchSensor extends Thread {
 					this.etat=false;
 				}
 			}
+			
 		}
 	}
 

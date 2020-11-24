@@ -15,6 +15,13 @@ public class But extends Thread{
 	
 	public void run() {
 		while(true) {
+			if(db.getCmd() == DB.FIRSTDIRECTIONCMD) {
+				while(!cs.changeColor().equals(ColorSensor.WHITE)) {
+					Delay.msDelay(5);
+					
+				}
+				db.setCmd(DB.BUTCMD);
+			}
 			if(db.getCmd()==DB.GOTOBUTCMD) {
 				while(!cs.changeColor().equals(ColorSensor.WHITE)) {
 					Delay.msDelay(5);
@@ -22,6 +29,7 @@ public class But extends Thread{
 				}
 				db.setCmd(DB.BUTCMD);
 			}
+			
 		}
 	}
 

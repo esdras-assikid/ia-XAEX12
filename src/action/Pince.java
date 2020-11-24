@@ -24,6 +24,15 @@ public class Pince extends Thread {
 	
 	public void run() {
 		while(true) {
+			if(db.getCmd() == DB.FIRSTPOINTCMD) {
+				if(!etat) {
+					this.deserrer();
+				}
+			}
+			if(db.getCmd() ==DB.FIRSTSAISIECMD) {
+				this.saisiePalet();
+				db.setCmd(DB.FIRSTDIRECTIONCMD);
+			}
 			if(db.getCmd() == DB.SEARCHCMD) {
 				if(!etat) {
 					this.deserrer();
@@ -47,7 +56,10 @@ public class Pince extends Thread {
 			}
 			if(db.getCmd() == DB.BUTCMD) {
 				this.lachePalet();
-				db.setCmd(DB.POINTCMD);
+				while(Motor.A.isMoving()) {
+					
+				}
+				db.setCmd(DB.CALIBRATECMD);
 				//System.out.print(db.getCmd());
 			}
 		}

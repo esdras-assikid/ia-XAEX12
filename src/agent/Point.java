@@ -2,7 +2,7 @@ package agent;
 
 public class Point {
 	//angle en degre pour se mettre dans la bonne position depuis la ligne de but
-	private int angle;
+	private double angle;
 	
 	
 	
@@ -15,7 +15,7 @@ public class Point {
 	
 	
 
-	public Point(int angle, double distance, float distanceMax, int orientation) {
+	public Point(double angle, double distance, float distanceMax, int orientation) {
 		// TODO Auto-generated constructor stub
 		this.angle = angle;
 		this.distance = distance;
@@ -43,7 +43,7 @@ public class Point {
 	/**
 	 * @return the angle
 	 */
-	public int getAngle() {
+	public double getAngle() {
 		return angle;
 	}
 

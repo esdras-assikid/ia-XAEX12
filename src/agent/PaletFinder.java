@@ -16,7 +16,7 @@ public class PaletFinder extends Thread {
 		this.db = db;
 	}
 	
-	private float rechercherPaletPlusProche (int angleDeBalayage){
+	private float rechercherPaletPlusProche (double angleDeBalayage){
 		float closestAngle = -1.0f;
 		d.getPilot().setAngularSpeed(45);
 		d.getPilot().rotate(angleDeBalayage / 2);
@@ -35,18 +35,18 @@ public class PaletFinder extends Thread {
 		
 		
 		d.getPilot().rotate(angleDeBalayage+closestAngle);
-		d.modifierPosition( Math.round(angleDeBalayage+closestAngle));
+		d.modifierPosition(angleDeBalayage/2+closestAngle);
 		
 		
 		return lastDistance;
 	
 	}
 	
-	private void calibratePosition (){
+	private float calibratePosition (){
 		float closestAngle = -1.0f;
 		d.getPilot().setAngularSpeed(45);
-		d.getPilot().rotate(45 / 2);
-		d.getPilot().rotate(-45,true);
+		d.getPilot().rotate(25);
+		d.getPilot().rotate(-50,true);
 		float lastDistance = 3.0f;
 		
 		while(d.getPilot().isMoving()) {
@@ -61,17 +61,18 @@ public class PaletFinder extends Thread {
 		
 		d.getPilot().rotate(45+closestAngle);
 		d.setPosition(0);
-		
-		
-		;
+		return lastDistance;
 	
 	}
 	
 	public void run() {
 		while(true) {
 			if(db.getCmd() == DB.SEARCHCMD) {
-				float res = rechercherPaletPlusProche(25);
-				System.out.println(res);
+				float res = rechercherPaletPlusProche(40);
+				//System.out.println(res);
+				while(d.getPilot().isMoving()) {
+					
+				}
 				db.setDistanceToPalet(res);
 				db.setCmd(DB.GOTOPALETCMD);
 			}
@@ -92,7 +93,17 @@ public class PaletFinder extends Thread {
 				while(db.getCmd()==DB.GOTOBUTCMD) {
 					
 				}
-				d.stop();
+				d.getPilot().stop();
+				//db.setCmd(DB.BUTCMD);
+				//d.stop();
+				
+			}
+			if(db.getCmd()==DB.CALIBRATECMD) {
+				float res = calibratePosition();
+				while(d.getPilot().isMoving()) {
+					
+				}
+				db.setCmd(DB.POINTCMD);
 				//db.setCmd(DB.BUTCMD);
 				//d.stop();
 				

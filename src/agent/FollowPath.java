@@ -31,54 +31,42 @@ public class FollowPath extends Thread {
 		db.setCmd(DB.SEARCHCMD);
 		
 	}
-	private void marquerPoint() {
-		d.turnRight(d.getPosition());
+	private void seRepositonnerIfPaletNotTouched() {
+		d.reculer(0.4);
 		while(d.getPilot().isMoving()) {
 			
 		}
-		d.avancer();
+		db.setCmd(DB.SEARCHCMD);;
 	}
 	public void seRepositionnerIfNotFound() {
-		if(e.getIdPointActuel() == 0) {
-			d.turnLeft(45);
+		if(e.getIdPointActuel() == 1) {
+			d.turnLeft(20);
 			while(d.getPilot().isMoving()) {
 				
 			}
-			d.avancer(0.1);
+			d.avancer(0.2);
 			while(d.getPilot().isMoving()) {
 				
 			}
 			e.pointNotFound.add(e.getCurrentPoint());
-			e.setIdPointActuel(1);
+			
+			e.setIdPointActuel(2);
+			e.setPointDistanceMAX(0.70f);
 			db.setDistanceMAX(0.70f);
 			db.setCmd(DB.SEARCHCMD);
 			
 		}
-		if(e.getIdPointActuel() == 1) {
-			e.pointNotFound.add(e.getCurrentPoint());
-			d.avancer(0.4);
+		else if(e.getIdPointActuel() ==2) {
+			d.avancer(0.2);
 			while(d.getPilot().isMoving()) {
 				
 			}
-			db.setCmd(DB.SEARCHCMD);
-			e.setIdPointActuel(2);
-
+			e.pointNotFound.add(e.getCurrentPoint());
 			
-		}
-		if(e.getIdPointActuel() ==2) {
-			e.pointNotFound.add(e.getCurrentPoint());
-			d.gotoPosition180();
-			while(d.getPilot().isMoving()) {
-				
-			}
-			d.avancer(0.4);
-			while(d.getPilot().isMoving()) {
-				
-			}
 			e.setIdPointActuel(3);
-			d.turnLeft(20);
+			e.setPointDistanceMAX(0.80f);
+			db.setDistanceMAX(0.70f);
 			db.setCmd(DB.SEARCHCMD);
-			
 		}
 		
 	}
@@ -87,6 +75,33 @@ public class FollowPath extends Thread {
 	public void run() {
 		boolean b =true;
 		while(true) {
+			if(db.getCmd()== DB.FIRSTPOINTCMD) {
+				d.avancer();
+				while(db.getCmd() == DB.FIRSTPOINTCMD) {
+					
+				}
+				d.avancer(0.05);
+			}
+			if(db.getCmd()== DB.FIRSTDIRECTIONCMD) {
+				d.turnLeft(40);
+				while(d.getPilot().isMoving()) {
+					
+				}
+				d.avancer(0.3);
+				while(d.getPilot().isMoving()) {
+					
+				}
+				d.turnRight(41);
+				while(d.getPilot().isMoving()) {
+					
+				}
+				d.avancer();
+				while(db.getCmd()==DB.FIRSTDIRECTIONCMD) {
+					
+				}
+				d.stop();
+				
+			}
 			if(db.getCmd() == DB.POINTCMD) {
 				allerAuPointSvt();
 				b=true;
@@ -94,7 +109,7 @@ public class FollowPath extends Thread {
 			if(db.getCmd()==DB.GOTOPALETCMD && b) {
 				System.out.print(db.getDistanceToPalet());
 				if(db.getDistanceToPalet() > e.getDistanceMAX()) {
-					//this.seRepositionnerIfNotFound();
+					this.seRepositionnerIfNotFound();
 				}else {
 					//System.out.println(db.getDistanceToPalet());
 					d.avancer(db.getDistanceToPalet()+0.05);
