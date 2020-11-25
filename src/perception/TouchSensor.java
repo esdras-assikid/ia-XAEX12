@@ -63,7 +63,7 @@ public class TouchSensor extends Thread {
 				}
 
 			}
-			if(db.isPaletDetected() && (db.getCmd()==DB.GOTOPALETCMD ||db.getCmd()==DB.AFTEROPENPINCECMD)) {
+			if(db.isPaletDetected() && (db.getCmd()==DB.AFTEROPENPINCECMD)) {
 				System.out.print("CA MARCHE");
 				if(aEteTouche()) {
 					System.out.print("CA MARCHE AUSSI");

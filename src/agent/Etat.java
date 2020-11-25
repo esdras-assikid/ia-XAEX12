@@ -34,11 +34,11 @@ public class Etat {
 
 		public Etat(String couleurLigneProche) {
 				Point point0 = new Point(30, 0.3,0.5f, RIGHT);
-				Point point1 = new Point(160, 0, 0.65f,  RIGHT);
-				Point point2 = new Point(180, 0.50, 1.00f, RIGHT );
-				Point point3 = new Point(135 , 0.50, 0.85f, RIGHT);
-				Point point4 = new Point( 180, 0.6, 0.45f,RIGHT);
-				Point point5 = new Point(180, 0.6, 0.5f, RIGHT);
+				Point point1 = new Point(160, 0.05, 0.65f,  RIGHT);
+				Point point2 = new Point(183, 0.67, 1.00f, RIGHT );
+				Point point3 = new Point(140 , 0.15, 0.75f, RIGHT);
+				Point point4 = new Point( 180, 0.75, 0.80f,RIGHT);
+				Point point5 = new Point(140, 0.15, 0.8f, RIGHT);
 				Point point6 = new Point(180, 0.6, 0.75f, LEFT);
 				//Point point7 = new Point(0.5f, 1.8f);
 				//Point point8 = new Point(1f, 1.8f);
@@ -136,7 +136,7 @@ public class Etat {
 		 * marqué un point
 		 */
 		public double getAngleFromPointMarquage() {
-			if(idPointActuel <4) {
+			if(idPointActuel <6) {
 				return circuit[idPointActuel].getAngle();
 									
 			}	
@@ -144,7 +144,7 @@ public class Etat {
 		}
 		
 		public int getCurrentPointOrientation() {
-			if(idPointActuel <4) {
+			if(idPointActuel <6) {
 				return circuit[idPointActuel].getOrientation();
 									
 			}	
@@ -157,7 +157,7 @@ public class Etat {
 		 *
 		 */
 		public double getDistanceToPoint() {
-			if(idPointActuel <4) {
+			if(idPointActuel <6) {
 				return circuit[idPointActuel].getDistance();
 									
 			}	

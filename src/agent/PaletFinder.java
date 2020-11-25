@@ -25,7 +25,7 @@ public class PaletFinder extends Thread {
 		float lastDistance = 3.0f;
 		
 		while(d.getPilot().isMoving()) {
-			Delay.msDelay(50); // 50 mesures par sec
+			Delay.msDelay(20); // 50 mesures par sec
 		    us.setCurrentDistance(us.getDistance());
 			if (us.getCurrentDistance() < lastDistance && us.getCurrentDistance() > 0.310) {
 				lastDistance = us.getCurrentDistance();
@@ -50,7 +50,7 @@ public class PaletFinder extends Thread {
 		float lastDistance = 3.0f;
 		
 		while(d.getPilot().isMoving()) {
-			Delay.msDelay(40); // 50 mesures par sec
+			Delay.msDelay(20); // 50 mesures par sec
 		    us.setCurrentDistance(us.getDistance());
 			if (us.getCurrentDistance() < lastDistance) {
 				lastDistance = us.getCurrentDistance();
