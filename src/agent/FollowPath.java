@@ -38,6 +38,7 @@ public class FollowPath extends Thread {
 		}
 		db.setCmd(DB.SEARCHCMD);;
 	}
+	/*
 	public void seRepositionnerIfNotFound() {
 		if(e.getIdPointActuel() == 1) {
 			d.turnLeft(20);
@@ -70,6 +71,7 @@ public class FollowPath extends Thread {
 		}
 		
 	}
+	*/
 	
 	@Override
 	public void run() {
@@ -87,11 +89,11 @@ public class FollowPath extends Thread {
 				while(d.getPilot().isMoving()) {
 					
 				}
-				d.avancer(0.3);
+				d.avancer(0.32);
 				while(d.getPilot().isMoving()) {
 					
 				}
-				d.turnRight(41);
+				d.turnRight(40);
 				while(d.getPilot().isMoving()) {
 					
 				}
@@ -107,18 +109,18 @@ public class FollowPath extends Thread {
 				b=true;
 			}
 			if(db.getCmd()==DB.GOTOPALETCMD && b) {
-				System.out.print(db.getDistanceToPalet());
+				/*System.out.print(db.getDistanceToPalet());
 				if(db.getDistanceToPalet() > e.getDistanceMAX()) {
 					this.seRepositionnerIfNotFound();
-				}else {
+				}else {*/
 					//System.out.println(db.getDistanceToPalet());
 					d.avancer(db.getDistanceToPalet()+0.05);
 					while(d.getPilot().isMoving()) {
-						
+
 					}
 					if(db.isPaletDetected())
-					b=false;
-				}
+						b=false;
+				//}
 				
 				
 			}

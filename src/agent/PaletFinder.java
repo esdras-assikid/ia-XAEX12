@@ -68,7 +68,7 @@ public class PaletFinder extends Thread {
 	public void run() {
 		while(true) {
 			if(db.getCmd() == DB.SEARCHCMD) {
-				float res = rechercherPaletPlusProche(40);
+				float res = rechercherPaletPlusProche(35);
 				//System.out.println(res);
 				while(d.getPilot().isMoving()) {
 					

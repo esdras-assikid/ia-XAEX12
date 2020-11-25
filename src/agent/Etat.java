@@ -35,8 +35,8 @@ public class Etat {
 		public Etat(String couleurLigneProche) {
 				Point point0 = new Point(30, 0.3,0.5f, RIGHT);
 				Point point1 = new Point(160, 0, 0.65f,  RIGHT);
-				Point point2 = new Point(135, 0.15, 0.70f, RIGHT );
-				Point point3 = new Point(135 , 0.13, 0.85f, RIGHT);
+				Point point2 = new Point(180, 0.50, 1.00f, RIGHT );
+				Point point3 = new Point(135 , 0.50, 0.85f, RIGHT);
 				Point point4 = new Point( 180, 0.6, 0.45f,RIGHT);
 				Point point5 = new Point(180, 0.6, 0.5f, RIGHT);
 				Point point6 = new Point(180, 0.6, 0.75f, LEFT);
