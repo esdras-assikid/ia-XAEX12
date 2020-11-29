@@ -137,6 +137,7 @@ public class Deplacement {
 	public void retourPositionInitial() {
 		if (position < 230) {
 			turnLeft(position);
+
 		}else {
 			turnRight(360-position);
 		}
@@ -154,7 +155,7 @@ public class Deplacement {
 		if(position < angle) {
 			turnRight(angle-position);
 		}else {
-			turnLeft(position-angle); 
+			turnLeft(position-angle);
 		}
 	}
 }

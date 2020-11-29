@@ -37,15 +37,11 @@ public class Pince extends Thread {
 				if(!etat) {
 					this.deserrer();
 				}
-				if(db.isPaletDetected()) {
-					db.setCmd(DB.AFTEROPENPINCECMD);
-				}
+				
 				
 			}
 			if(db.getCmd() == DB.GOTOPALETCMD) {
-				if(db.isPaletDetected()) {
-					db.setCmd(DB.AFTEROPENPINCECMD);
-				}
+				
 			}
 			if(db.getCmd()==DB.POINTCMD && etat) {
 				this.serrer();

@@ -62,16 +62,27 @@ public class TouchSensor extends Thread {
 					this.etat=false;
 				}
 
-			}
-			if(db.isPaletDetected() && (db.getCmd()==DB.AFTEROPENPINCECMD)) {
-				System.out.print("CA MARCHE");
+			}else if(db.isPaletDetected() && db.getCmd()==DB.GOTOPALETCMD ) {
+				//System.out.print("CA MARCHE");
 				if(aEteTouche()) {
 					System.out.print("CA MARCHE AUSSI");
-					db.setPaletDetected(false);
 					db.setCmd(DB.SAISIECMD);
-					this.etat=false;
+					//this.etat=false;
 				}
 			}
+			else if(db.isPaletDetected() && db.getCmd()==DB.AFTEROPENPINCECMD ) {
+				//System.out.print("CA MARCHE");
+				if(aEteTouche()) {
+					//System.out.print("CA MARCHE AUSSI");
+					db.setCmd(DB.SAISIECMD);
+					//this.etat=false;
+				}
+			}else {
+				this.etat=false;
+			}
+			
+			
+			
 			
 		}
 	}

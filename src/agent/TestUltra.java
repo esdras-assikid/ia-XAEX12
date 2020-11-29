@@ -46,11 +46,8 @@ public class TestUltra {
 	
 	
 	public TestUltra() {
-		d = new Deplacement();
 		us = new UltrasonicSensor();
 		d = new Deplacement();
-		ts = new TouchSensor();
-		p = new Pince();
 		rechercherPaletPlusProche(40);
 		System.out.println(us.getLastDistance());
 	while(true) {

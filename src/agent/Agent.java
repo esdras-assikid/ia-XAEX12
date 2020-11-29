@@ -195,6 +195,10 @@ public class Agent {
 
 		try {
 			Agent a = new Agent();
+			while(!Button.ENTER.isDown()) {
+				
+			}
+			
 			//a.marquerPremierPoint();
 			a.fp.start();
 			a.b.start();

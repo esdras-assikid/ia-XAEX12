@@ -22,13 +22,13 @@ public class UltrasonicSensor  {
 	
 	
 	private float[] sample; // to store samples
-	static Brick b ;
-	static Port s1 ;
+	public Brick b ;
+	public Port s1 ;
 	public  EV3UltrasonicSensor us ;
 	private SampleProvider source;
 	
-	private static float currentDistance;
-	private static float lastDistance;
+	private float currentDistance;
+	private float lastDistance;
 	
 	
 	
@@ -53,11 +53,11 @@ public class UltrasonicSensor  {
 		return sample[0];
 	}
 	
-	public float getListen() {
-		source = us.getListenMode();
-		source.fetchSample(sample, 0); // fetch a sample from the US sensor
-		return sample[0];
-	}
+	/*
+	 * public float getListen() { source = us.getListenMode();
+	 * source.fetchSample(sample, 0); // fetch a sample from the US sensor return
+	 * sample[0]; }
+	 */
 	
 	public float getCurrentDistance() {
 		return currentDistance;
@@ -89,7 +89,7 @@ public class UltrasonicSensor  {
 	public boolean detectPalet() { 
 	
 	
-		if(currentDistance > lastDistance  && lastDistance <= 0.33) { 
+		if(currentDistance > lastDistance  && lastDistance <= 0.4) { 
 			
 			return true;
 			
@@ -98,14 +98,13 @@ public class UltrasonicSensor  {
 		return false;
 	}
 	
-	
-	public boolean facingRobot() {
-		
-		if(this.getListen() == 1)
-			return true;
-			
-		return false;
-	}
+	/*
+	 * public boolean facingRobot() {
+	 * 
+	 * if(this.getListen() == 1) return true;
+	 * 
+	 * return false; }
+	 */
 	public static void main(String[] args) {
 
 		UltrasonicSensor ultra;

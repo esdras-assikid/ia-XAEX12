@@ -17,6 +17,7 @@ public class DB {
 	public static int BUTCMD = 6;
 	public static int RESETPOSITIONCMD = 8;
 	public static int CALIBRATECMD = 9;
+	public static int PALETNOTTOUCHEDCMD = 10;
 	
 	
 	public static int FIRSTPOINTCMD = 11;

@@ -23,12 +23,13 @@ public class PaletFinder extends Thread {
 		d.getPilot().rotate(-angleDeBalayage,true);
 		
 		float lastDistance = 3.0f;
+		float currentDistance = us.getDistance();
 		
 		while(d.getPilot().isMoving()) {
 			Delay.msDelay(20); // 50 mesures par sec
-		    us.setCurrentDistance(us.getDistance());
-			if (us.getCurrentDistance() < lastDistance && us.getCurrentDistance() > 0.310) {
-				lastDistance = us.getCurrentDistance();
+		    currentDistance = us.getDistance();
+			if (currentDistance < lastDistance ) {
+				lastDistance = currentDistance;
 				closestAngle = d.getPilot().getMovement().getAngleTurned(); // retourne l'angle parcouru depuis que la rotation a commencé
 			}
 		}
@@ -36,7 +37,7 @@ public class PaletFinder extends Thread {
 		
 		d.getPilot().rotate(angleDeBalayage+closestAngle);
 		d.modifierPosition(angleDeBalayage/2+closestAngle);
-		
+		us.setLastDistance(lastDistance);
 		
 		return lastDistance;
 	
@@ -48,12 +49,13 @@ public class PaletFinder extends Thread {
 		d.getPilot().rotate(25);
 		d.getPilot().rotate(-50,true);
 		float lastDistance = 3.0f;
+		float currentDistance = us.getDistance();
 		
 		while(d.getPilot().isMoving()) {
 			Delay.msDelay(20); // 50 mesures par sec
-		    us.setCurrentDistance(us.getDistance());
-			if (us.getCurrentDistance() < lastDistance) {
-				lastDistance = us.getCurrentDistance();
+			currentDistance = us.getDistance();
+			if (currentDistance < lastDistance) {
+				lastDistance = currentDistance;
 				closestAngle = d.getPilot().getMovement().getAngleTurned(); // retourne l'angle parcouru depuis que la rotation a commencé
 			}
 		}
@@ -68,23 +70,34 @@ public class PaletFinder extends Thread {
 	public void run() {
 		while(true) {
 			if(db.getCmd() == DB.SEARCHCMD) {
-				float res = rechercherPaletPlusProche(35);
+				float res = rechercherPaletPlusProche(45);
 				//System.out.println(res);
 				while(d.getPilot().isMoving()) {
 					
 				}
 				db.setDistanceToPalet(res);
 				db.setCmd(DB.GOTOPALETCMD);
+				//us.setCurrentDistance(us.getDistance());
 			}
 			if(db.getCmd()== DB.GOTOPALETCMD) {
 				us.setCurrentDistance(us.getDistance());
 				if(us.detectPalet()) {
 					db.setPaletDetected(true);
+					us.setLastDistance(3.0f);
 					//d.stop();
+				}else {
+					us.setLastDistance(us.getCurrentDistance()); 
+					Delay.msDelay(30);
 				}
 				
-				us.setLastDistance(us.getCurrentDistance()); 
-				Delay.msDelay(30);
+				
+				
+			}
+			if(db.getCmd()==DB.SAISIECMD) {
+				d.avancer(0.05);
+				while(db.getCmd() ==DB.SAISIECMD) {
+					//b
+				}
 				
 			}
 			
