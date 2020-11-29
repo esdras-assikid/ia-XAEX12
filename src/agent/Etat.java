@@ -34,17 +34,17 @@ public class Etat {
 
 		public Etat(String couleurLigneProche) {
 				Point point0 = new Point(30, 0.3,0.5f, RIGHT);
-				Point point1 = new Point(165, 0.1, 0.65f,  RIGHT);
+				Point point1 = new Point(165, 0.13, 0.65f,  RIGHT);
 				Point point2 = new Point(183, 0.67, 0.7f, RIGHT );
-				Point point3 = new Point(140 , 0.23, 0.75f, RIGHT);
+				Point point3 = new Point(140 , 0.25, 0.75f, RIGHT);
 				Point point4 = new Point( 180, 0.75, 0.80f,RIGHT);
-				Point point5 = new Point(140, 0.23, 0.8f, RIGHT);
+				Point point5 = new Point(140, 0.25, 0.8f, RIGHT);
 				Point point6 = new Point(180, 0.6, 0.75f, LEFT);
 				Point point7 = new Point(180,1.35,0.7f, RIGHT);
 				Point point8 = new Point(200,1.40, 0.7f, RIGHT);
 				
 				
-				circuit = new Point[]{point0, point1,point2, point3, point4,point5, point6, /**,point5, point6, point7, point8**/ };
+				circuit = new Point[]{point0, point1,point2, point3, point4,point5, point6, point7, point8 /**,point5, point6, point7, point8**/ };
 				idPointActuel = 1;
 				pointNotFound = new ArrayList<Integer>() ;
 				ligneProche = new Ligne(couleurLigneProche, idLigneProche);
@@ -136,7 +136,7 @@ public class Etat {
 		 * marqué un point
 		 */
 		public double getAngleFromPointMarquage() {
-			if(idPointActuel <7) {
+			if(idPointActuel <9) {
 				return circuit[idPointActuel].getAngle();
 									
 			}	
@@ -144,7 +144,7 @@ public class Etat {
 		}
 		
 		public int getCurrentPointOrientation() {
-			if(idPointActuel <7) {
+			if(idPointActuel <9) {
 				return circuit[idPointActuel].getOrientation();
 									
 			}	
@@ -157,7 +157,7 @@ public class Etat {
 		 *
 		 */
 		public double getDistanceToPoint() {
-			if(idPointActuel <7) {
+			if(idPointActuel <9) {
 				return circuit[idPointActuel].getDistance();
 									
 			}	

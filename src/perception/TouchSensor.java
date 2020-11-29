@@ -62,7 +62,8 @@ public class TouchSensor extends Thread {
 					this.etat=false;
 				}
 
-			}else if(db.isPaletDetected() && db.getCmd()==DB.GOTOPALETCMD ) {
+			}
+			if(db.isPaletDetected() && db.getCmd()==DB.GOTOPALETCMD ) {
 				//System.out.print("CA MARCHE");
 				if(aEteTouche()) {
 					System.out.print("CA MARCHE AUSSI");
@@ -70,14 +71,15 @@ public class TouchSensor extends Thread {
 					//this.etat=false;
 				}
 			}
-			else if(db.isPaletDetected() && db.getCmd()==DB.AFTEROPENPINCECMD ) {
+			if(db.isPaletDetected() && db.getCmd()==DB.AFTEROPENPINCECMD ) {
 				//System.out.print("CA MARCHE");
 				if(aEteTouche()) {
 					//System.out.print("CA MARCHE AUSSI");
 					db.setCmd(DB.SAISIECMD);
 					//this.etat=false;
 				}
-			}else {
+			}
+			if(db.getCmd() == DB.DIRECTIONBUTCMD){
 				this.etat=false;
 			}
 			

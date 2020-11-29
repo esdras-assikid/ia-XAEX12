@@ -143,6 +143,15 @@ public class Deplacement {
 		}
 	}
 	
+	public void retourPositionInitialDroite() {
+		if (position < 183) {
+			turnLeft(position);
+
+		}else {
+			turnRight(360-position);
+		}
+	}
+	
 	public void gotoPosition180() {
 		if(position < 180) {
 			turnRight(180-position);
@@ -157,6 +166,19 @@ public class Deplacement {
 		}else {
 			turnLeft(position-angle);
 		}
+	}
+	
+	public static void main(String[] args) {
+		Deplacement d = new Deplacement();
+		d.turnLeft(140);
+		while(d.getPilot().isMoving()) {
+			
+		}
+		d.gotoPosition(360-160);
+		while(d.getPilot().isMoving()){
+			
+		}
+		
 	}
 }
 
