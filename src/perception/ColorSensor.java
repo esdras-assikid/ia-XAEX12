@@ -13,11 +13,19 @@ import lejos.robotics.SampleProvider;
 import lejos.robotics.filter.MeanFilter;
 import lejos.utility.Delay;
 
+// Classe qui gère le capteur des couleurs
 public class ColorSensor {
+
+	// Instance du capteur de couleurs
 	public EV3ColorSensor colorSensor;
+
 	public SampleProvider average;
+
+	// Tableau pour stocker les couleurs détectées
+	// La couleur actuelle se situe en position 0
 	public String[] currentColor;
 	
+	// Tableaux contenant les valeurs correspondant à chaque couleur
 	public  float[] blue;
 	public  float[] yellow;
 	public  float[] grey;
@@ -26,6 +34,7 @@ public class ColorSensor {
 	public  float[] red;
 	public  float[] white;
 	
+	// Constantes désignant chaque couleur
 	public static final String BLUE ="BLUE";
 	public static final String YELLOW = "YELLOW";
 	public static final String GREY = "GREY";
@@ -34,89 +43,96 @@ public class ColorSensor {
 	public static final String RED = "RED";
 	public static final String WHITE = "WHITE";
 
-	//Constructor 
+	// Initialise le capteur de couleurs et lit les valeurs correspondant à chaque couleur
+	// dans un fichier créé au préalable comportant les valeurs pour chaque couleur
 	public ColorSensor() throws FileNotFoundException {
-		
-			File colorFile = new File("CouleurXAEX12.txt");
-			Scanner colorFileReader = new Scanner(colorFile);
-			while(colorFileReader.hasNextLine()) {
-				String line = colorFileReader.nextLine();
-				String[] values = line.split(";");
-				System.out.println(values[0]);
-				 if(values[0].equals("green")) {
-					green = new float[3];
-					
-					green[0] = Float.valueOf(values[1]);
-					green[1] = Float.valueOf(values[2]);
-					green[2] = Float.valueOf(values[3]);
-					System.out.println(green[0]);
-					
-				}else if(values[0].equals("grey")) {
-					grey = new float[3];
-					grey[0] = Float.valueOf(values[1]);
-					grey[1] = Float.valueOf(values[2]);
-					grey[2] = Float.valueOf(values[3]);
-					System.out.println(grey[0]);
-					
-				}else if(values[0].equals("yellow")) {
-					yellow = new float[3];
-					yellow[0] = Float.valueOf(values[1]);
-					yellow[1] = Float.valueOf(values[2]);
-					yellow[2] = Float.valueOf(values[3]);
-					System.out.println(yellow[0]);
-				}else if(values[0].equals("red")) {
-					red = new float[3];
-					red[0] = Float.valueOf(values[1]);
-					red[1] = Float.valueOf(values[2]);
-					red[2] = Float.valueOf(values[3]);
-					System.out.println(red[0]);
-				}else if(values[0].equals("blue")) {
-					blue = new float[3];
-					blue[0] = Float.valueOf(values[1]);
-					blue[1] = Float.valueOf(values[2]);
-					blue[2] = Float.valueOf(values[3]);
-					System.out.println(blue[0]);
-					
-				}else if(values[0].equals("black")) {
-					black = new float[3];
-					black[0] = Float.valueOf(values[1]);
-					black[1] = Float.valueOf(values[2]);
-					black[2] = Float.valueOf(values[3]);
-					System.out.println(black[0]);
-					
-				}else if(values[0].equals("whites")) {
-					white = new float[3];
-					white[0] = Float.valueOf(values[1]);
-					white[1] = Float.valueOf(values[2]);
-					white[2] = Float.valueOf(values[3]);
-					System.out.println(white[0]);
-				}
-				
-				
+
+		File colorFile = new File("CouleurXAEX12.txt");
+		Scanner colorFileReader = new Scanner(colorFile);
+		while(colorFileReader.hasNextLine()) {
+			String line = colorFileReader.nextLine();
+			String[] values = line.split(";");
+			//System.out.println(values[0]);
+			if(values[0].equals("green")) {
+				green = new float[3];
+
+				green[0] = Float.valueOf(values[1]);
+				green[1] = Float.valueOf(values[2]);
+				green[2] = Float.valueOf(values[3]);
+				//System.out.println(green[0]);
+
+			}else if(values[0].equals("grey")) {
+				grey = new float[3];
+				grey[0] = Float.valueOf(values[1]);
+				grey[1] = Float.valueOf(values[2]);
+				grey[2] = Float.valueOf(values[3]);
+				//System.out.println(grey[0]);
+
+			}else if(values[0].equals("yellow")) {
+				yellow = new float[3];
+				yellow[0] = Float.valueOf(values[1]);
+				yellow[1] = Float.valueOf(values[2]);
+				yellow[2] = Float.valueOf(values[3]);
+				//System.out.println(yellow[0]);
+			}else if(values[0].equals("red")) {
+				red = new float[3];
+				red[0] = Float.valueOf(values[1]);
+				red[1] = Float.valueOf(values[2]);
+				red[2] = Float.valueOf(values[3]);
+				//System.out.println(red[0]);
+			}else if(values[0].equals("blue")) {
+				blue = new float[3];
+				blue[0] = Float.valueOf(values[1]);
+				blue[1] = Float.valueOf(values[2]);
+				blue[2] = Float.valueOf(values[3]);
+				//System.out.println(blue[0]);
+
+			}else if(values[0].equals("black")) {
+				black = new float[3];
+				black[0] = Float.valueOf(values[1]);
+				black[1] = Float.valueOf(values[2]);
+				black[2] = Float.valueOf(values[3]);
+				//System.out.println(black[0]);
+
+			}else if(values[0].equals("whites")) {
+				white = new float[3];
+				white[0] = Float.valueOf(values[1]);
+				white[1] = Float.valueOf(values[2]);
+				white[2] = Float.valueOf(values[3]);
+				//System.out.println(white[0]);
 			}
-			colorFileReader.close();
-			
-			Port port = LocalEV3.get().getPort("S4");
-			colorSensor = new EV3ColorSensor(port);
-			average = new MeanFilter(colorSensor.getRGBMode(), 1);
-			colorSensor.setFloodlight(Color.WHITE);
-			
-		
-		  this.currentColor = new String[4]; this.currentColor[0] =
-		  this.getCurrentColor(); for(int i=1; i<4; i++) {
-		  currentColor[i]=ColorSensor.WHITE; }
-		  System.out.println(this.currentColor[0]);
-		 
-		
+
+
+		}
+		colorFileReader.close();
+
+		Port port = LocalEV3.get().getPort("S4");
+		colorSensor = new EV3ColorSensor(port);
+		average = new MeanFilter(colorSensor.getRGBMode(), 1);
+		colorSensor.setFloodlight(Color.WHITE);
+
+
+		this.currentColor = new String[4]; 
+		this.currentColor[0] = this.getCurrentColor(); 
+
+		for(int i=1; i<4; i++) {
+			currentColor[i]=ColorSensor.WHITE; 
+		}
+
+		System.out.println(this.currentColor[0]);
+
+
 		
 	}
 	
+	// Calcule un scalaire et retourne la valeur
 	public static double scalaire(float[] v1, float[] v2) {
 		return Math.sqrt (Math.pow(v1[0] - v2[0], 2.0) +
 				Math.pow(v1[1] - v2[1], 2.0) +
 				Math.pow(v1[2] - v2[2], 2.0));
 	}
 	
+	// Retourne la couleur actuellement détectée
 	public String getCurrentColor() {
 		float[] sample = new float[average.sampleSize()];
 		average.fetchSample(sample, 0);
@@ -170,6 +186,7 @@ public class ColorSensor {
 		
 	}
 	
+	// Met à jour le tableau des couleurs détectées
 	public void updateColorTable(String color) {
 		for(int i=this.currentColor.length-1; i > 0; i--) {
 			currentColor[i]= currentColor[i-1];
@@ -178,6 +195,7 @@ public class ColorSensor {
 		
 	}
 	
+	// Modifie la couleur actuellement détectée
 	public String changeColor() {
 		String colorDetected = this.getCurrentColor();
 		while(colorDetected == this.currentColor[0]) {
@@ -189,6 +207,8 @@ public class ColorSensor {
 		return colorDetected;
 	}
 	
+	
+	// Tests
 	public static void main(String[] args) {
 		try {
 			ColorSensor cs = new ColorSensor();

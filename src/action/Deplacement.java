@@ -14,7 +14,7 @@ import lejos.robotics.navigation.MovePilot;
 public class Deplacement {
 
 	/**
-	 * Le pilote MovePilot du robot.
+	 * Instance du pilote MovePilot du robot.
 	 * @see Deplacement#getPilot()
 	 */
 	private MovePilot pilot;
@@ -24,7 +24,7 @@ public class Deplacement {
 	 * La valeur zÃ©ro correspond au robot tournÃ© vers le nord, sur la ligne de dÃ©part, face Ã  la ligne adverse.
 	 * @see Deplacement#getPosition()
 	 */
-	private int position = 0;
+	private double position = 0;
 
 
 	/**
@@ -37,7 +37,15 @@ public class Deplacement {
 		Wheel rightWheel = WheeledChassis.modelWheel(Motor.C, 0.056).offset(0.06075);
 		Chassis chassis = new WheeledChassis(new Wheel[] {leftWheel, rightWheel}, WheeledChassis.TYPE_DIFFERENTIAL);
 		pilot = new MovePilot(chassis);
-		pilot.setAngularSpeed(90);
+		pilot.setAngularSpeed(45);
+		
+	}
+
+	/**
+	 * @param position the position to set
+	 */
+	public void setPosition(double position) {
+		this.position = position;
 	}
 
 	/**
@@ -51,7 +59,7 @@ public class Deplacement {
 	 * Retourne la position.
 	 * @return la position de type entier.
 	 */
-	public int getPosition() {
+	public double getPosition() {
 		return position;
 	}
 	/**
@@ -64,7 +72,7 @@ public class Deplacement {
 	}
 
 	/**
-	 * Le robot avance d'une certaine distance
+	 * Le robot avance et continue d'avancer tant qu'il n'est pas arrêté
 	 * @see Deplacement#pilot
 	 */
 	public void avancer() {
@@ -72,7 +80,7 @@ public class Deplacement {
 	}
 	/**
 	 * @param distance est la distance Ã  parcourir.
-	 * Le robot recule.
+	 * Le robot recule d'une certaine distance.
 	 * @see Deplacement#pilot
 	 */
 	public void reculer(double distance) {
@@ -80,7 +88,7 @@ public class Deplacement {
 	}
 
 	/**
-	 *  * Le robot recule.
+	 *  * Le robot recule et continue de reculer tant qu'il n'est pas arrêté.
 	 * @see Deplacement#pilot
 	 */
 	public void reculer() {
@@ -99,7 +107,7 @@ public class Deplacement {
 	 * @param angle est l'angle de rotation du robot.
 	 * @see Deplacement#position
 	 */
-	public void turnLeft(int angle) {
+	public void turnLeft(double angle) {
 		pilot.rotate(-angle,true);
 		modifierPosition(-angle);
 	}
@@ -109,7 +117,7 @@ public class Deplacement {
 	 * @param angle
 	 * @see Deplacement#position
 	 */
-	public void turnRight(int angle) {
+	public void turnRight(double angle) {
 		pilot.rotate(angle,true);
 		modifierPosition(angle);
 	}
@@ -118,12 +126,47 @@ public class Deplacement {
 	 * @param angle est l'angle de rotation.
 	 * @see Deplacement#position
 	 */
-	public void modifierPosition(int angle) {
+	public void modifierPosition(double angle) {
 		position+=angle;
 		if (position>=360)
 			position-=360;
 		if (position<0)
 			position=360+position;
+	}
+	
+	// Se remet en direction de la ligne d'en-but adverse
+	public void retourPositionInitial() {
+		if (position < 230) {
+			turnLeft(position);
+
+		}else {
+			turnRight(360-position);
+		}
+	}
+	
+	
+	// Se met en direction d'une position donnée
+	public void gotoPosition(double angle) {
+		if(position < angle) {
+			turnRight(angle-position);
+		}else {
+			turnLeft(position-angle);
+		}
+	}
+	
+	
+	// tests
+	public static void main(String[] args) {
+		Deplacement d = new Deplacement();
+		d.turnLeft(140);
+		while(d.getPilot().isMoving()) {
+			
+		}
+		d.gotoPosition(360-160);
+		while(d.getPilot().isMoving()){
+			
+		}
+		
 	}
 }
 

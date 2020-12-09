@@ -14,27 +14,36 @@ import lejos.robotics.filter.AbstractFilter;
 import lejos.robotics.navigation.MovePilot;
 import lejos.utility.Delay;
 
-
+// Classe qui gère le capteur d'ultrasons du robot 
 public class UltrasonicSensor  {
-    
-	//Attribut
 	
+	// Tableau contenant les valeurs des distances captées
+	private float[] sample; 
 	
+	// Instance de la Brick
+	public Brick b ;
 	
-	private float[] sample; // to store samples
-	static Brick b ;
-	static Port s1 ;
+	// Instance du port du capteur d'ultrasons
+	public Port s1 ;
+	
+	// Instance du capteur d'ultrasons
 	public  EV3UltrasonicSensor us ;
+	
+	// Fournit le bon nombre d'éléments à mettre dans le tableau sample en fonction du mode du capteur choisi
 	private SampleProvider source;
 	
-	private static float currentDistance;
-	private static float lastDistance;
+	// Distance actuelle mesurée
+	private float currentDistance;
+	
+	// Dernière distance mesurée
+	private float lastDistance;
 	
 	
 	
-	//Constructeur
 	
-	public UltrasonicSensor() { // source = sensor mode
+	// Initialise tous les attributs
+	// Le mode du capteur est le "distance" mode, permettant de mesurer les distances
+	public UltrasonicSensor() { 
 		
 		b = BrickFinder.getDefault();
 		s1 = b.getPort("S1");
@@ -45,51 +54,49 @@ public class UltrasonicSensor  {
 		lastDistance = 3.0f;
 	}
 	
-	// Mï¿½thodes
 	
+	// Retourne la distance actuelle mesurée
 	public float getDistance() {
 		source = us.getDistanceMode();
 		source.fetchSample(sample, 0); // fetch a sample from the US sensor
 		return sample[0];
 	}
 	
-	public float getListen() {
-		source = us.getListenMode();
-		source.fetchSample(sample, 1); // fetch a sample from the US sensor
-		return sample[1];
-	}
 	
+	// Retourne la distance actuelle
 	public float getCurrentDistance() {
 		return currentDistance;
 	}
 	
+	// Retourne la dernière distance mesurée
 	public float getLastDistance() {
 		return lastDistance;
 	}
 	
+	// Modifie la distance actuelle
 	public void setCurrentDistance(float currentDistance) {
 		this.currentDistance = currentDistance;
 	}
 	
+	// Modifie la dernière distance mesurée
 	public void setLastDistance(float lastDistance) {
 		this.lastDistance = lastDistance;
 	}
 	
-	// Permet de dï¿½tecter un mur ou le robot adverse
-	// Si la distance est inferieur a celle a partir de laquelle un palet n'est plus detecte, alors c'est ou bien un mur
-	// ou bien le robot adverse qui est en face
+	// Retourne true si le robot est face à un mur, false sinon
 	public boolean detectWall() {
-		if(currentDistance < 0.3) {
+		if(getDistance() < 0.3) {
 			return true;
 		}
 		
 		return false;
 	}
 	
+	// Retourne true si un palet à été détecté, false sinon
 	public boolean detectPalet() { 
 	
 	
-		if(currentDistance > lastDistance  && lastDistance <= 0.33) { 
+		if(currentDistance > lastDistance  && lastDistance <= 0.4) { 
 			
 			return true;
 			
@@ -99,13 +106,10 @@ public class UltrasonicSensor  {
 	}
 	
 	
-	public boolean facingRobot() {
-		
-		if(this.getListen() == 1)
-			return true;
-			
-		return false;
-	}
+	
+	
+	
+	//Tests
 	public static void main(String[] args) {
 
 		UltrasonicSensor ultra;
@@ -119,8 +123,58 @@ public class UltrasonicSensor  {
 		
 		
 		
-		boolean res = false;
-		lastDistance = 2.5f;
+		//Test getDistance()
+		
+		while(true) {
+			System.out.println(ultra.getDistance());
+			Delay.msDelay(1000);
+		if(Button.ESCAPE.isDown()) {
+				ultra.us.close();
+				System.exit(0);
+			}
+		}
+		
+		
+		
+		/*Test detectPalet()
+		pilot.forward();
+		while(true) {
+			
+			currentDistance = ultra.getDistance();
+			if(ultra.detectPalet())
+				pilot.stop();
+			lastDistance = currentDistance;
+			Delay.msDelay(50);
+			
+			if(Button.ESCAPE.isDown()) {
+				ultra.us.close();
+				System.exit(0);
+			}
+		}
+		*/
+		
+		/*Test detectWall()
+		pilot.forward();
+		while(true) {
+			//currentDistance = ultra.getDistance();
+			if(ultra.detectWall())
+				pilot.stop();
+			//Delay.msDelay(50);
+			
+			if(Button.ESCAPE.isDown()) {
+				ultra.us.close();
+				System.exit(0);
+			}
+		}
+		*/
+		
+		
+		
+		/* Test rechercherPalet
+		 * 
+		 * 
+		 * boolean res = false;
+		
 		pilot.forward();
 		while (true) {
 			
@@ -142,10 +196,13 @@ public class UltrasonicSensor  {
 				System.out.print(res);
 			}
 			
+		
+		
 			if(Button.ESCAPE.isDown()) {
 				ultra.us.close();
 				System.exit(0);
 			}
 		}
+		*/
 	}
 }

@@ -8,10 +8,8 @@ import lejos.hardware.motor.Motor;
 import lejos.utility.Delay;
 import perception.*;
 
-// Cette classe permet de lancer le programme complet du robot
-// Toutes les méthodes run() contenues dans les autres classes sont exécutées en parallèle grâce à la classe Thread
-// Elle utilise toutes les autres classes sauf Point, AgentDroit et AgentGauche
-public class Agent {
+// Cette classe est la même que la classe Agent, seulement elle est lancée lorsqu'on veut débuter la partie à droite
+public class AgentDroit {
 
 	// Instance de l'état du terrain
 	Etat e; 
@@ -44,7 +42,7 @@ public class Agent {
 	PaletFinder pf;
 	
 	// Initialise toutes les instances
-	public Agent() throws FileNotFoundException {
+	public AgentDroit() throws FileNotFoundException {
 		cs = new ColorSensor();
 		d = new Deplacement();
 		e = new Etat();
@@ -70,7 +68,7 @@ public class Agent {
 
 
 		try {
-			Agent a = new Agent();
+			AgentDroit a = new AgentDroit();
 			while(!Button.ENTER.isDown()) {
 
 			}
@@ -104,3 +102,4 @@ public class Agent {
 	}
 
 }
+
