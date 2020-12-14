@@ -1,6 +1,6 @@
 # ia-XAEX12
  
-Voici le code utilisé pour programmer un robot Lego Mindstorms à l'aide de la librairie LeJOS.
+Le code utilisé pour programmer le robot Lego Mindstorms à l'aide de la librairie LeJOS se trouve dans le dossier src.
 
 Tous les documents relatifs à la gestion du projet se trouvent en format PDF dans le dossier "Documents du projet".
 
