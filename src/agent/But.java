@@ -31,7 +31,7 @@ public class But extends Thread{
 	}
 
 	/**
-	 * Méthode principale
+	 * Méthode principale qui fait en sorte que le robot s'arrête et lâche le palet détenu entre les pinces, après avoir détecté une ligne blanche.
 	 */
 	public void run() {
 		while(true) {

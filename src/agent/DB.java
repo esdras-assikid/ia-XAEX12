@@ -24,15 +24,11 @@ public class DB {
 	/**
 	 * Dans cet état, le robot démarre une recherche (= balayage) du palet.
 	 */
-	public static int SEARCHCMD =1;
+	public static int SEARCHCMD = 1;
 	/**
 	 *  Dans cet état, le robot, après avoir effectué la recherche, ouvre les pinces et se dirige vers le palet.
 	 */
 	public static int GOTOPALETCMD = 2;
-	/**
-	 * 
-	 */
-	public static int AFTEROPENPINCECMD = 7;
 	/**
 	 * Dans cet état, le robot enclenche la saisie du palet.
 	 */
@@ -49,6 +45,11 @@ public class DB {
 	 * Dans cet état, après avoir atteint la ligne d'en-but adverse, le robot lache le palet.
 	 */
 	public static int BUTCMD = 6;
+	/**
+	 * Dans cet état, le robot a les pinces ouvertes, s'est dirigé vers le palet pour le récupérer mais ne l'a pas touché.
+	 * Il avance donc encore un peu afin de le saisir, au cas où il y aurait une marge d'erreur.
+	 */
+	public static int AFTEROPENPINCECMD = 7;
 	/**
 	 * Dans cet état, après avoir déposé le palet, le robot calibre sa position en s'aidant du mur se trouvant en face.
 	 */
@@ -93,7 +94,7 @@ public class DB {
 
 	/**
 	 * Modifie l'état de l'attribut {@link DB#paletDetected}
-	 * @param paletDetected
+	 * @param paletDetected 
 	 */
 	public void setPaletDetected(boolean paletDetected) {
 		this.paletDetected = paletDetected;
