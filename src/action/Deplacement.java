@@ -38,7 +38,7 @@ public class Deplacement {
 
 	/**
 	 * Modifie l'attribut position.
-	 * @param the position to set
+	 * @param position double type
 	 */
 	public void setPosition(double position) {
 		this.position = position;

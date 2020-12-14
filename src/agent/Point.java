@@ -23,9 +23,9 @@ public class Point {
 
 	/**
 	 * Constructeur qui initialise les attributs.
-	 * @param angle
-	 * @param distance
-	 * @param distanceMax
+	 * @param angle double type
+	 * @param distance double type
+	 * @param distanceMax float type
 	 */
 	public Point(double angle, double distance, float distanceMax) {
 		this.angle = angle;
@@ -43,7 +43,7 @@ public class Point {
 
 	/**
 	 * Modifie la distance max à laquelle le palet est censé se trouver lors de la recherche.
-	 * @param distanceMax
+	 * @param distanceMax float type
 	 */
 	public void setDistanceMax(float distanceMax) {
 		this.distanceMax = distanceMax;

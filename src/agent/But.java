@@ -22,8 +22,8 @@ public class But extends Thread{
 
 	/**
 	 * Constructeur qui initialise les instances ColorSensor et DB.
-	 * @param cs ColorSensor type
-	 * @param db DB type
+	 * @param cs {@link ColorSensor} type
+	 * @param db {@link DB} type
 	 */
 	public But(ColorSensor cs, DB db) {
 		this.cs = cs;

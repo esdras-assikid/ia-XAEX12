@@ -26,9 +26,9 @@ public class PaletFinder extends Thread {
 
 	/**
 	 * Constructeur qui instancie les attributs.
-	 * @param us 
-	 * @param d	
-	 * @param db 
+	 * @param us {@link UltrasonicSensor} type
+	 * @param d	{@link Deplacement} type
+	 * @param db {@link DB} type
 	 */
 	public PaletFinder(UltrasonicSensor us, Deplacement d, DB db) {
 		this.us = us;
@@ -39,7 +39,7 @@ public class PaletFinder extends Thread {
 	/**
 	 * Démarre une recherche de palet en effectuant un balayage selon un angle donné en paramètre.
 	 * Le robot se met en direction de l'objet détecté le plus proche s'il en a trouvé un.
-	 * @param angleDeBalayage
+	 * @param angleDeBalayage double type
 	 * @return la distance du plus proche objet détecté.
 	 */
 	private float rechercherPaletPlusProche (double angleDeBalayage){

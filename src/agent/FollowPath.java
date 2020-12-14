@@ -1,7 +1,6 @@
 package agent;
 
 import action.Deplacement;
-import lejos.utility.Delay;
 /**
  * FollowPath est la classe qui contient les méthodes permettant au robot de suivre le circuit définit dans la classe Etat.
  * Elle utilise les classes Etat, Deplacement et DB.
@@ -27,9 +26,9 @@ public class FollowPath extends Thread {
 
 	/**
 	 * Constructeur qui initialise les instances.
-	 * @param e
-	 * @param d
-	 * @param db
+	 * @param e {@link Etat} type
+	 * @param d {@link Deplacement} type
+	 * @param db {@link DB} type
 	 */
 	public FollowPath(Etat e, Deplacement d, DB db) {
 		this.e = e;

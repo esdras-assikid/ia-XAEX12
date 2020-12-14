@@ -94,7 +94,7 @@ public class DB {
 
 	/**
 	 * Modifie l'état de l'attribut {@link DB#paletDetected}
-	 * @param paletDetected 
+	 * @param paletDetected boolean type
 	 */
 	public void setPaletDetected(boolean paletDetected) {
 		this.paletDetected = paletDetected;
@@ -110,7 +110,7 @@ public class DB {
 
 	/**
 	 * Modifie la commande actuelle.
-	 * @param cmd
+	 * @param cmd int type
 	 */
 	public void setCmd(int cmd) {
 		this.cmd = cmd;
@@ -126,7 +126,7 @@ public class DB {
 
 	/**
 	 * Modifie la distance séparant le robot du palet repéré lors de la recherche.
-	 * @param distanceToPalet
+	 * @param distanceToPalet float type
 	 */
 	public void setDistanceToPalet(float distanceToPalet) {
 		this.distanceToPalet = distanceToPalet;
@@ -142,7 +142,7 @@ public class DB {
 
 	/**
 	 * Modifie la distance maximale à laquelle le palet est censé se trouver lors de la recherche.
-	 * @param distanceMAX
+	 * @param distanceMAX float type
 	 */
 	public void setDistanceMAX(float distanceMAX) {
 		this.distanceMAX = distanceMAX;

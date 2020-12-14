@@ -4,8 +4,6 @@ import java.io.FileNotFoundException;
 
 import action.*;
 import lejos.hardware.Button;
-import lejos.hardware.motor.Motor;
-import lejos.utility.Delay;
 import perception.*;
 
 /**
@@ -56,7 +54,7 @@ public class AgentGauche {
 
 	/**
 	 * Constructeur qui initialise toutes les instances.
-	 * @throws FileNotFoundException
+	 * @throws FileNotFoundException si le fichier CouleurXAEX12.txt est absent pour l'instanciation de la classe ColorSensor
 	 */
 	public AgentGauche() throws FileNotFoundException {
 		cs = new ColorSensor();
@@ -75,7 +73,7 @@ public class AgentGauche {
 	 * Méthode principale qui instancie Agent et lance le programme dès que le bouton "Enter" est pressé.
 	 * La méthode start() permet d'appeler les méthodes run des instances sur lesquelles elle est appelée.
 	 * Le programme s'arête quand le bouton "Escape" est pressé.
-	 * @param args
+	 * @param args String[] type
 	 */
 	public static void main(String[] args) {
 		try {

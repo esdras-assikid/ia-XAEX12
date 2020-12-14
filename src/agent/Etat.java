@@ -2,7 +2,7 @@ package agent;
 
 import java.util.ArrayList;
 
-import perception.ColorSensor;
+
 
 /**
  * Etat est la classe qui fournit au robot une représentation de l'état du terrain.
@@ -41,7 +41,7 @@ public class Etat {
 
 	/**
 	 * Permet de modifier la valeur de la distance maximale à laquelle le palet est censé se trouver lors de la recherche.
-	 * @param d
+	 * @param d float type
 	 */ 
 	public void setPointDistanceMAX(float d) {
 		circuit[idPointActuel].setDistanceMax(d);
@@ -49,7 +49,7 @@ public class Etat {
 
 	/**
 	 * Retourne la distance maximale à laquelle le palet est censé se trouver lors de la recherche.
-	 * @return
+	 * @return la distance maximale à laquelle le palet est censé se trouver lors de la recherche du point actuel
 	 */
 	public float getDistanceMAX() {
 		return circuit[idPointActuel].getDistanceMax();
@@ -65,7 +65,7 @@ public class Etat {
 
 	/**
 	 * Modifie l'ID du point vers lequel le robot doit se diriger.
-	 * @param {@link Etat#idPointActuel}
+	 * @param idPointActuel {@link Etat#idPointActuel}
 	 */
 	public void setIdPointActuel(int idPointActuel) {
 		this.idPointActuel = idPointActuel;

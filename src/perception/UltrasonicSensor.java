@@ -2,17 +2,9 @@ package perception;
 
 import lejos.hardware.Brick;
 import lejos.hardware.BrickFinder;
-import lejos.hardware.Button;
-import lejos.hardware.motor.Motor;
 import lejos.hardware.port.Port;
 import lejos.hardware.sensor.EV3UltrasonicSensor;
 import lejos.robotics.SampleProvider;
-import lejos.robotics.chassis.Chassis;
-import lejos.robotics.chassis.Wheel;
-import lejos.robotics.chassis.WheeledChassis;
-import lejos.robotics.filter.AbstractFilter;
-import lejos.robotics.navigation.MovePilot;
-import lejos.utility.Delay;
 /**
  * UltrasonicSensor est la classe qui exploite le capteur d'ultrasons du robot.
  * @author Marouan BOULLI

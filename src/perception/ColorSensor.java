@@ -91,7 +91,7 @@ public class ColorSensor {
 
 	/**
 	 * Construceur qui initialise le capteur de couleurs et lit les valeurs correspondantes à chaque couleur dans un fichier crée au préalable contenant les valeurs associées à chaque couleur.
-	 * @throws FileNotFoundException
+	 * @throws FileNotFoundException si le fichier CouleurXAEX12.txt est absent pour l'instanciation 
 	 */
 	public ColorSensor() throws FileNotFoundException {
 		File colorFile = new File("CouleurXAEX12.txt");
@@ -155,8 +155,8 @@ public class ColorSensor {
 
 	/**
 	 * Calcule un scalaire et retourne sa valeur.
-	 * @param v1
-	 * @param v2
+	 * @param v1 float type
+	 * @param v2 float type
 	 * @return scalaire
 	 */
 	public static double scalaire(float[] v1, float[] v2) {
@@ -249,7 +249,7 @@ public class ColorSensor {
 
 	/**
 	 * Programme de test.
-	 * @param args
+	 * @param args {@link String}[] type
 	 */
 	public static void main(String[] args) {
 		try {

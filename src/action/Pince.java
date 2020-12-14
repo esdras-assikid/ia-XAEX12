@@ -28,7 +28,7 @@ public class Pince extends Thread {
 	/**
 	 * Constructeur qui instancie les attributs.
 	 * Au lancement du programme, le robot a les pinces fermées et ne détient pas de palet.
-	 * @param db 
+	 * @param db DB type
 	 */
 	public Pince(DB db) {
 		this.db = db;
@@ -45,7 +45,7 @@ public class Pince extends Thread {
 
 	/**
 	 * Modifie l'attribut etat.
-	 * @param etat
+	 * @param etat boolean type
 	 */
 	public void setEtat(boolean etat) {
 		this.etat = etat;
@@ -60,7 +60,7 @@ public class Pince extends Thread {
 
 	/**
 	 * Modifie l'attribut aPalet.
-	 * @param aPalet
+	 * @param aPalet boolean type
 	 */
 	public void setaPalet(boolean aPalet) {
 		this.aPalet = aPalet;

@@ -8,7 +8,6 @@ import lejos.hardware.motor.Motor;
 import lejos.hardware.port.Port;
 import lejos.hardware.sensor.EV3TouchSensor;
 
-import lejos.utility.Delay;
 
 import lejos.robotics.*;
 import lejos.robotics.chassis.Chassis;
@@ -58,7 +57,7 @@ public class TouchSensor extends Thread {
 	 * Constructeur qui initialise les attributs.
 	 * Le mode du capteur est le TouchMode.
 	 * L'état est initialisé à false : au début de la partie, le robot a les pinces vides et fermées.
-	 * @param db
+	 * @param db {@link DB} type
 	 */
 	public TouchSensor(DB db) {
 		b = BrickFinder.getDefault();
@@ -90,7 +89,7 @@ public class TouchSensor extends Thread {
 
 	/**
 	 * Modifie l'attribut d'état du capteur.
-	 * @param etat
+	 * @param etat boolean etat
 	 * @see TouchSensor#etat
 	 */
 	public void setEtat(boolean etat) {
@@ -140,7 +139,7 @@ public class TouchSensor extends Thread {
 
 	/**
 	 * Programme de test.
-	 * @param args
+	 * @param args {@link String}[] type
 	 */
 	public static void main(String[] args) {
 
