@@ -1,76 +1,100 @@
 package action;
-
-
 import agent.DB;
 import lejos.hardware.motor.Motor;
 
-// Cette classe décrit les pinces du robot et contient toutes les actions à réaliser avec ces pinces
-// Elle utilise la classe DB
-
+/**
+ * Pince est la classe qui permet de gÃ©rer les mouvements de la pince du robot.
+ * @author AlizÃ©e GUYOT
+ */
 public class Pince extends Thread {
-	
-	// Décrit l'état actuel des pinces : ouvertes = true  vs  fermées = false
+
+	/**
+	 * Attribut boolÃ©en dÃ©crivant l'Ã©tat des pinces.
+	 * S'il vaut true, les pinces sont ouvertes.
+	 * S'il vaut false, les pinces sont fermÃ©es.
+	 */
 	private boolean etat; 
-	
-	// Précise si le robot tient un palet entre ses pinces ou non : tient le palet = true  vs  n'a pas de palet = false
+	/**
+	 * Attribut boolÃ©en prÃ©cisant si le robot dÃ©tient un palet.
+	 * S'il vaut true, les pinces serrent un palet.
+	 * S'il vaut false, les pinces ne serrent pas de palet.
+	 */
 	private boolean aPalet; 
-	
-	// Instance de DB pour modifier les commandes
+	/**
+	 * Instance de la classe DB pour modifier les commandes.
+	 */
 	private DB db;
-	
-	
-	// Initialise les attributs
-	// Au début de la partie, les pinces sont fermées et le robot ne tient pas de palet
+
+	/**
+	 * Constructeur qui instancie les attributs.
+	 * Au lancement du programme, le robot a les pinces fermÃ©es et ne dÃ©tient pas de palet.
+	 * @param db 
+	 */
 	public Pince(DB db) {
 		this.db = db;
 		etat = false;
 		aPalet = false;
-		
 	}
-	
-	
-	// Retourne l'état des pinces : fermées ou ouvertes
+
+	/**
+	 * @return {@link Pince#etat}
+	 */
 	public boolean isEtat() {
 		return etat;
 	}
-	
-	// Modifie l'état des pinces
+
+	/**
+	 * Modifie l'attribut etat.
+	 * @param etat
+	 */
 	public void setEtat(boolean etat) {
 		this.etat = etat;
 	}
-	
-	// Retourne true si le robot détient un palet, false sinon
+
+	/**
+	 * @return {@link Pince#aPalet}
+	 */
 	public boolean isaPalet() {
 		return aPalet;
 	}
-	
-	// Modifie si le robot détient un palet ou non
+
+	/**
+	 * Modifie l'attribut aPalet.
+	 * @param aPalet
+	 */
 	public void setaPalet(boolean aPalet) {
 		this.aPalet = aPalet;
 	}
 
-	
-	// Ferme les pinces et modifie leur état (fermées = false)
+	/**
+	 * Ferme les pinces et met Ã  jour l'attribut etat Ã  false.
+	 */
 	public void serrer() {		
 		Motor.A.rotate(-900);
 		etat=false;	
 	}
-	
-	// Desserre les pinces et modifie leur état (ouvertes = true)
+
+	/**
+	 * Ouvre les pinces et met Ã  jour l'attribut etat Ã  true.
+	 */
 	public void deserrer() {		
 		Motor.A.rotate(900);
 		etat=true;
 	}
-	
-	// Saisie le palet si les pinces sont bien ouvertes et met à jour aPalet (détient un palet = true)
+
+	/**
+	 * Saisit un palet si les pinces sont ouvertes et met Ã  jour l'attribut etat Ã  true.
+	 */
 	public void saisiePalet() {
 		if (etat==true) {
 			Motor.A.rotate(-900);
 			aPalet=true;	
 		}
 	}
-	
-	// Lache le palet si le robot détient un palet et met à jour aPalet (ne détient pas de palet = false) et l'état des pinces (ouvertes = true)
+
+	/**
+	 * Lache le palet si le robot dÃ©tient en dÃ©tient un et met Ã  jour aPalet.
+	 */
 	public void lachePalet() {
 		if (aPalet==true) {
 			Motor.A.rotate(900);
@@ -78,52 +102,37 @@ public class Pince extends Thread {
 			etat=true;
 		}
 	}
-	
-	
-	// Méthode principale contenant toutes les actions à réaliser avec les pinces en respectant toutes les conditions décrites
+
+	/**
+	 * MÃ©thode principale contenant toutes les actions Ã  rÃ©aliser avec les pinces en respectant toutes les conditions dÃ©crites.
+	 */
 	public void run() {
 		while(true) {
-			if(db.getCmd() == DB.FIRSTPOINTCMD) {
-				if(!etat) {
+			if(db.getCmd() == DB.FIRSTPOINTCMD) 
+				if(!etat) 
 					this.deserrer();
-				}
-			}
 			if(db.getCmd() ==DB.FIRSTSAISIECMD) {
 				this.saisiePalet();
 				db.setCmd(DB.FIRSTDIRECTIONCMD);
 			}
-			if(db.getCmd() == DB.SEARCHCMD) {
-				if(!etat) {
+			if(db.getCmd() == DB.SEARCHCMD) 
+				if(!etat) 
 					this.deserrer();
-				}
-				
-				
-			}
-			if(db.getCmd() == DB.GOTOPALETCMD) {
-				
-			}
-			if(db.getCmd()==DB.POINTCMD && etat) {
+			if(db.getCmd() == DB.GOTOPALETCMD);
+			if(db.getCmd()==DB.POINTCMD && etat) 
 				this.serrer();
-			}
 			if(db.getCmd() ==DB.SAISIECMD && !aPalet) {
 				this.saisiePalet();
 				db.setCmd(DB.DIRECTIONBUTCMD);
-			}else if(db.getCmd() == DB.SAISIECMD && aPalet){
+			} else if(db.getCmd() == DB.SAISIECMD && aPalet){
 				db.setCmd(DB.DIRECTIONBUTCMD);
 			}
 			if(db.getCmd() == DB.BUTCMD) {
 				this.lachePalet();
 				while(Motor.A.isMoving()) {
-					
 				}
 				db.setCmd(DB.CALIBRATECMD);
-				//System.out.print(db.getCmd());
 			}
 		}
 	}
-	
-	
-	
-
-
 }

@@ -1,62 +1,67 @@
 package agent;
 
-// Cette classe sert à décrire les points contenus dans le circuit que le robot doit suivre robot
-
+/**
+ * Agent est la classe qui sert Ã  dÃ©crire les points contenus dans le circuit, et auxquelles le robot doit se diriger.
+ * @author Esdras ASSIKIDANA
+ */
 public class Point {
-	
-	//angle en degrés par rapport à la position du robot lorsqu'il est sur la ligne d'en-but adverse face au mur après avoir déposer le palet
-	//Grâce à cette valeur, il sait de combien de degrés il doit se tourner pour être face au point suivant (= palet suivant)
+	/**
+	 * Angle en degrÃ©s par rapport Ã  la position du robot lorsqu'il est sur la ligne d'en-but adverse face au mur aprÃ¨s avoir dÃ©poser le palet.
+	 * Permet au robot de savoir de combien de degrÃ©s il doit se tourner pour Ãªtre face au point suivant (et donc au palet suivant).
+	 */
 	private double angle;
-	
-	
-	
-	//la distance à parcourir vers le point avant de faire la recherche de palet
+	/**
+	 * Distance Ã  parcour vers le point avant d'effectuer une recherche de palet.
+	 */
 	private double distance;
-	
-	//la distance max à laquelle le palet est censé se trouver lors de la recherche
-	//Si aucune des valeurs captées par l'ultrasonic sensor n'est inférieure à cette valeur lors de la recherche
-	//alors il considère qu'il n'y a plus de palet à ce point
+	/**
+	 * Distance maximale Ã  laquelle le palet est censÃ© se trouver lors de la recherche.
+	 * Si aucune des valeurs captÃ©es par l'UltrasonicSensor n'est infÃ©rieure Ã  cette valeur lors de la recherche, alors il considÃ¨re qu'il n'y a plus de palet Ã  ce point.
+	 */
 	private float distanceMax = 0.49f;
-	
-	
-	//initialise les valeurs des attributs
-	
+
+
+	/**
+	 * Constructeur qui initialise les attributs.
+	 * @param angle
+	 * @param distance
+	 * @param distanceMax
+	 */
 	public Point(double angle, double distance, float distanceMax) {
-		// TODO Auto-generated constructor stub
 		this.angle = angle;
 		this.distance = distance;
 		this.distanceMax = distanceMax;
 	}
-	
 
-	// Retourne la distance max à laquelle le palet est censé se trouver lors de la recherche
+	/**
+	 * Retourne la distance maximale Ã  laquelle le palet est censÃ© se trouver lors de la recherche.
+	 * @return {@link Point#distanceMax}
+	 */
 	public float getDistanceMax() {
 		return distanceMax;
 	}
 
-
-	// Modifie la distance max à laquelle le palet est censé se trouver lors de la recherche
+	/**
+	 * Modifie la distance max Ã  laquelle le palet est censÃ© se trouver lors de la recherche.
+	 * @param distanceMax
+	 */
 	public void setDistanceMax(float distanceMax) {
 		this.distanceMax = distanceMax;
 	}
 
-
-	// Retourne l'angle en degrés par rapport à la position du robot lorsqu'il est sur la ligne d'en-but adverse face au mur après avoir déposer le palet
+	/**
+	 * Retourne l'angle en degrÃ©s par rapport Ã  la position du robot lorsqu'il est sur la ligne d'en-but adverse face au mur aprÃ¨s avoir dÃ©poser le palet.
+	 * @return {@link Point#angle}
+	 */
 	public double getAngle() {
 		return angle;
 	}
 
-
-	// Retourne la distance à parcourir vers le point avant de faire la recherche de palet
+	/**
+	 * Retourne la distance Ã  parcourir vers le point avant de faire la recherche de palet.
+	 * @return {@link Point#distance}
+	 */
 	public double getDistance() {
 		return distance;
 	}
-
-
-	
-	
-	
-	
-	
-
 }

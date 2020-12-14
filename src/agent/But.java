@@ -2,44 +2,51 @@ package agent;
 
 import lejos.utility.Delay;
 
-// Cette classe exécute les actions à réaliser lorsque le robot franchit la ligne blanche adverse
+// Cette classe exï¿½cute les actions ï¿½ rï¿½aliser lorsque le robot franchit la ligne blanche adverse
 // Elle utilise les classes ColorSensor et DB
 import perception.ColorSensor;
 
+/**
+ * But est la classe qui gÃ¨re les points Ã  marquer.
+ * @author Esdras ASSIKIDANA
+ */
 public class But extends Thread{
-	
-	// instance du colorSensor pour détecter la ligne blanche
+	/**
+	 * Instance du ColorSensor pour dÃ©tecter la ligne blanche.
+	 */
 	ColorSensor cs;
-	
-	// instance DB pour passer la commande actuelle à BUTCMD
+	/**
+	 * Instance DB pour passer la commande actuelle Ã  BUTCMD.
+	 */
 	DB db;
-	
-	// initialise les instances ColorSensor et DB
+
+	/**
+	 * Constructeur qui initialise les instances ColorSensor et DB.
+	 * @param cs
+	 * @param db
+	 */
 	public But(ColorSensor cs, DB db) {
-		// TODO Auto-generated constructor stub
 		this.cs = cs;
 		this.db = db;
 	}
-	
-	
+
+	/**
+	 * MÃ©thode principale
+	 */
 	public void run() {
 		while(true) {
 			if(db.getCmd() == DB.FIRSTDIRECTIONCMD) {
 				while(!cs.changeColor().equals(ColorSensor.WHITE)) {
 					Delay.msDelay(5);
-					
 				}
 				db.setCmd(DB.BUTCMD);
 			}
 			if(db.getCmd()==DB.GOTOBUTCMD) {
 				while(!cs.changeColor().equals(ColorSensor.WHITE)) {
 					Delay.msDelay(5);
-					
 				}
 				db.setCmd(DB.BUTCMD);
-			}
-			
+			}	
 		}
 	}
-
 }

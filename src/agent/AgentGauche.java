@@ -8,40 +8,56 @@ import lejos.hardware.motor.Motor;
 import lejos.utility.Delay;
 import perception.*;
 
-// Cette classe est la même que la classe Agent, seulement elle est lancée lorsqu'on veut débuter la partie à gauche
+/**
+ * AgentGauche est une classe identique Ã  Agent. Elle est lancÃ©e lorsque le robot dÃ©bute la partie du cÃ´tÃ© gauche.
+ * @author Esdras ASSIKIDANA
+ */
 public class AgentGauche {
-
-	// Instance de l'état du terrain
+	/**
+	 * Instance de l'Ã©tat du terrain.
+	 */
 	Etat e; 
-
-	// Instance du capteur d'ultrasons
+	/**
+	 * Instance du capteur d'ultrasons.
+	 */
 	UltrasonicSensor us; 
-	
-	// Instance du capteur de couleurs
+	/**
+	 * Instance du capteur de couleurs.
+	 */
 	ColorSensor cs; 
-	
-	// Instance du capteur de toucher
+	/**
+	 * Instance du capteur de toucher.
+	 */
 	TouchSensor ts; 
-	
-	// Instance pour la pince
+	/**
+	 * Instance de la pince.
+	 */
 	Pince p; 
-
-	//Instance de deplacement
+	/**
+	 * Instance de dÃ©placement.
+	 */
 	Deplacement d;
-	
-	// Instance de DB pour le contrôle des commandes
+	/**
+	 * Instance de DB pour le contrÃ´le des commandes.
+	 */
 	DB db;
-	
-	// Instance de Followpath pour suivre le circuit décrit dans Etat
+	/**
+	 * Instance de FollowPath pour suivre le circuit dÃ©crit dans Etat.
+	 */
 	FollowPath fp;
-	
-	// Instance de But pour les actions à réaliser au moment de marquer un but
+	/**
+	 * Instance de But pour les actions Ã  rÃ©aliser au moment de marquer un but.
+	 */
 	But b;
-	
-	// Instance de PaletFinder pour exécuter les phases de recherche
+	/**
+	 * Instance de PaletFinder pour exÃ©cuter les phases de recherche.
+	 */
 	PaletFinder pf;
-	
-	// Initialise toutes les instances
+
+	/**
+	 * Constructeur qui initialise toutes les instances.
+	 * @throws FileNotFoundException
+	 */
 	public AgentGauche() throws FileNotFoundException {
 		cs = new ColorSensor();
 		d = new Deplacement();
@@ -53,54 +69,35 @@ public class AgentGauche {
 		b= new But(cs, db);
 		pf = new PaletFinder(us, d, db);
 		ts = new TouchSensor(db);
-
 	}
 
-
-
-
-
-
-	// Méthode principale qui instancie Agent et lance le programme dès que le bouton "Enter" est pressé
-	// La méthode start() permet d'appeler les méthodes run des instances sur lesquelles elle est appelée
-	// Le programme s'arrête quand le bouton "Escape" est pressé
+	/**
+	 * MÃ©thode principale qui instancie Agent et lance le programme dÃ¨s que le bouton "Enter" est pressÃ©.
+	 * La mÃ©thode start() permet d'appeler les mÃ©thodes run des instances sur lesquelles elle est appelÃ©e.
+	 * Le programme s'arÃªte quand le bouton "Escape" est pressÃ©.
+	 * @param args
+	 */
 	public static void main(String[] args) {
-
-
 		try {
 			AgentGauche a = new AgentGauche();
 			while(!Button.ENTER.isDown()) {
-
 			}
 
-			
 			a.fp.start();
 			a.b.start();
 			a.p.start();
 			a.pf.start();
 			a.ts.start();
 
-			while(!Button.ESCAPE.isDown()) {
-
-			}
+			while(!Button.ESCAPE.isDown());
 			System.exit(0);
-	
-
 			if(Button.ESCAPE.isDown()) {
-				//UltrasonicSensor.us.close();
 				a.cs.colorSensor.close();
 				a.d.stop();
-
 				System.exit(0);
 			}
-
 		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-
 	}
-
 }
-
-

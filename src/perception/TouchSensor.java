@@ -15,40 +15,52 @@ import lejos.robotics.chassis.Chassis;
 import lejos.robotics.chassis.Wheel;
 import lejos.robotics.chassis.WheeledChassis;
 import lejos.robotics.navigation.MovePilot;
-
-// Classe qui gère le capteur de toucher du robot
-// Elle utilise la classe DB
+/**
+ * TouchSensor est la classe qui exploite le capteur de toucher.
+ * Elle utilise la classe DB.
+ * @author Pierre LAURENT-PAOLI.
+ */
 public class TouchSensor extends Thread {
 
-	// Instance du capteur de toucher
+	/**
+	 * Instance du capteur de toucher.
+	 */
 	private EV3TouchSensor ts;
-	
-	// Tableau contenant les valeurs renvoyées par le capteur de toucher
+	/**
+	 * Tableau contenant les valeurs renvoyÃ©es par le capteur de toucher.
+	 */ 
 	private float [] sample;
-	
-	// Fournit le bon nombre de valeurs à mettre dans le tableau sample en fonction du mode du capteur choisi
+	/**
+	 * Instance fournissant le nombre de valeurs Ã  mettre dans le tableau sample en fonction du mode du capteur choisi.
+	 * @see TouchSensor#sample
+	 */
 	private SampleProvider source;
-	
-	// Instance de la Brick
+	/**
+	 * Instance de la brick EV3.
+	 */
 	Brick b;
-	
-	// Instance du port du capteur de toucher
+	/**
+	 * Instance du port dans lequel est branchÃ© le capteur de toucher.
+	 */
 	Port s3;
-	
-	// Etat du capteur de toucher : true = le capteur a touché quelque chose, false sinon.
+	/**
+	 * Ã‰tat du capteur de toucher.
+	 * S'il est stimulÃ©, il vaut true.
+	 * S'il n'est pas stimulÃ©, il vaut false.
+	 */
 	private boolean etat;
-
-	
-	// Instance de DB permettant de modifier les commandes
+	/**
+	 * Instance de DB permettant de modifier les commandes.
+	 */
 	private DB db;
-	
-	
-	
-	// Initialise les attributs
-	// Le mode du capteur est le TouchMode
-	// L'état est initialisé à false : au début de la partie, le robot ne touche rien
-	public TouchSensor(DB db)
-    {
+
+	/**
+	 * Constructeur qui initialise les attributs.
+	 * Le mode du capteur est le TouchMode.
+	 * L'Ã©tat est initialisÃ© Ã  false : au dÃ©but de la partie, le robot a les pinces vides et fermÃ©es.
+	 * @param db
+	 */
+	public TouchSensor(DB db) {
 		b = BrickFinder.getDefault();
 		s3 = b.getPort("S3");
 		ts = new EV3TouchSensor(s3);
@@ -56,31 +68,39 @@ public class TouchSensor extends Thread {
 		sample = new float[source.sampleSize()];
 		etat=false;
 		this.db = db;
-    }
-	
-	
-	// Retourne true au moment où le capteur est touché
-	public boolean isPressed()
-	{
+	}
+
+	/**
+	 * MÃ©thode boolÃ©enne qui retourne true s'il le capteur de toucher est pressÃ©.
+	 * @return true si le capteur de toucher est prÃ©ssÃ©, false sinon.
+	 */
+	public boolean isPressed() {
 		float[] sample = new float[1];
 		source.fetchSample(sample, 0);
 		return sample[0] != 0;
-
 	}
-		
-	// Retourne l'état du capteur
+
+	/**
+	 * @return l'Ã©tat du capteur.
+	 * @see TouchSensor#etat
+	 */
 	public boolean isEtat() {
 		return etat;
 	}
 
-	// Modifie l'état du capteur
+	/**
+	 * Modifie l'attribut d'Ã©tat du capteur.
+	 * @param etat
+	 * @see TouchSensor#etat
+	 */
 	public void setEtat(boolean etat) {
 		this.etat = etat;
 	}
-	
-	
 
-	// Retourne true si le capteur a été touché à un moment donné
+	/**
+	 * @return l'Ã©tat du capteur.
+	 * @see TouchSensor#etat
+	 */
 	public boolean aEteTouche() {
 		while(etat == false) {
 			etat = isPressed();
@@ -88,10 +108,9 @@ public class TouchSensor extends Thread {
 		return etat;
 	}
 
-
-	
-	
-	// Méthode principale contenant les instructions à réaliser suivant l'état du capteur et la commande en cours
+	/**
+	 * MÃ©thode principale contenant les instructions Ã  rÃ©aliser suivant l'Ã©tat du capteur et la commande en cours.
+	 */ 
 	public void run() {
 		while(true) {
 			if(db.getCmd()==DB.FIRSTPOINTCMD) {
@@ -101,57 +120,44 @@ public class TouchSensor extends Thread {
 					db.setCmd(DB.FIRSTSAISIECMD);
 					this.etat=false;
 				}
-
 			}
 			if(db.isPaletDetected() && db.getCmd()==DB.GOTOPALETCMD ) {
-				//System.out.print("CA MARCHE");
 				if(aEteTouche()) {
 					System.out.print("CA MARCHE AUSSI");
 					db.setCmd(DB.SAISIECMD);
-					//this.etat=false;
 				}
 			}
 			if(db.isPaletDetected() && db.getCmd()==DB.AFTEROPENPINCECMD ) {
-				//System.out.print("CA MARCHE");
 				if(aEteTouche()) {
-					//System.out.print("CA MARCHE AUSSI");
 					db.setCmd(DB.SAISIECMD);
-					//this.etat=false;
 				}
 			}
 			if(db.getCmd() == DB.DIRECTIONBUTCMD){
 				this.etat=false;
 			}
-			
-			
-			
-			
 		}
 	}
 
-  
-  	
-	
-    
-    
-    // Tests
+	/**
+	 * Programme de test.
+	 * @param args
+	 */
 	public static void main(String[] args) {
-		
+
 		TouchSensor ts = new TouchSensor(new DB());
 		MovePilot pilot;
-		Wheel leftWheel = WheeledChassis.modelWheel(Motor.B,0.056).offset(-0.06075); // 0.056 = diamï¿½tre des roues, offset = dï¿½calage des roues ??
+		Wheel leftWheel = WheeledChassis.modelWheel(Motor.B,0.056).offset(-0.06075); 
 		Wheel rightWheel = WheeledChassis.modelWheel(Motor.C, 0.056).offset(0.06075);
 		Chassis chassis = new WheeledChassis(new Wheel[] {leftWheel, rightWheel}, WheeledChassis.TYPE_DIFFERENTIAL);
 		pilot = new MovePilot(chassis);
 		pilot.forward();
 		while(true) {
-		
 			if(ts.aEteTouche())
 				pilot.stop();
 			System.out.println(ts.aEteTouche());
-		if(Button.ESCAPE.isDown()) {
-			System.exit(0);
-		}
+			if(Button.ESCAPE.isDown()) {
+				System.exit(0);
+			}
 		}
 	}
 

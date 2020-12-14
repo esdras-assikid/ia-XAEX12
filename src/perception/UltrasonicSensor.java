@@ -13,38 +13,45 @@ import lejos.robotics.chassis.WheeledChassis;
 import lejos.robotics.filter.AbstractFilter;
 import lejos.robotics.navigation.MovePilot;
 import lejos.utility.Delay;
-
-// Classe qui gËre le capteur d'ultrasons du robot 
+/**
+ * UltrasonicSensor est la classe qui exploite le capteur d'ultrasons du robot.
+ * @author Marouan BOULLI
+ */
 public class UltrasonicSensor  {
-	
-	// Tableau contenant les valeurs des distances captÈes
+	/**
+	 * Tableau contenant les valeurs des distances capt√©es.
+	 */
 	private float[] sample; 
-	
-	// Instance de la Brick
+	/**
+	 * Instance de la brick EV3.
+	 */
 	public Brick b ;
-	
-	// Instance du port du capteur d'ultrasons
+	/**
+	 * Instance du port du capteur d'ultrasons.
+	 */
 	public Port s1 ;
-	
-	// Instance du capteur d'ultrasons
+	/**
+	 * Instance du capteur d'ultrasons.
+	 */
 	public  EV3UltrasonicSensor us ;
-	
-	// Fournit le bon nombre d'ÈlÈments ‡ mettre dans le tableau sample en fonction du mode du capteur choisi
+	/**
+	 * Instance qui fournit le nombre d'√©l√©ments √† mettre dans le tableau sample en fonction du mode du capteur choisi.
+	 */
 	private SampleProvider source;
-	
-	// Distance actuelle mesurÈe
+	/**
+	 * Distance actuellement mesur√©e.
+	 */
 	private float currentDistance;
-	
-	// DerniËre distance mesurÈe
+	/**
+	 * Derni√®re distance mesur√©e.
+	 */
 	private float lastDistance;
-	
-	
-	
-	
-	// Initialise tous les attributs
-	// Le mode du capteur est le "distance" mode, permettant de mesurer les distances
+
+	/**
+	 * Constructeur qui initialise tous les attributs.
+	 * Le mode du capteur est le "distance" mode, permettant de mesurer les distances.
+	 */ 
 	public UltrasonicSensor() { 
-		
 		b = BrickFinder.getDefault();
 		s1 = b.getPort("S1");
 		us = new EV3UltrasonicSensor(s1);
@@ -53,156 +60,69 @@ public class UltrasonicSensor  {
 		currentDistance = this.getDistance();
 		lastDistance = 3.0f;
 	}
-	
-	
-	// Retourne la distance actuelle mesurÈe
+
+	/**
+	 *Retourne la distance actuellement mesur√©e.
+	 * @return {@link UltrasonicSensor#sample}[0]
+	 */
 	public float getDistance() {
 		source = us.getDistanceMode();
-		source.fetchSample(sample, 0); // fetch a sample from the US sensor
+		source.fetchSample(sample, 0); 
 		return sample[0];
 	}
-	
-	
-	// Retourne la distance actuelle
+
+	/**
+	 * Retourne l'attribut correspondant √† la distance actuellement mesur√©e.
+	 * @return {@link UltrasonicSensor#currentDistance}
+	 */
 	public float getCurrentDistance() {
 		return currentDistance;
 	}
-	
-	// Retourne la derniËre distance mesurÈe
+
+	/**
+	 * Retourne la derni√®re distance mesur√©e.
+	 * @return {@link UltrasonicSensor#lastDistance}
+	 */
 	public float getLastDistance() {
 		return lastDistance;
 	}
-	
-	// Modifie la distance actuelle
+
+	/**
+	 * Modifie la distance actuellement mesur√©e.
+	 * @param currentDistance est la nouvelle distance actuellement mesur√©e.
+	 */
 	public void setCurrentDistance(float currentDistance) {
 		this.currentDistance = currentDistance;
 	}
-	
-	// Modifie la derniËre distance mesurÈe
+
+	/**
+	 * Modifie la derni√®re distance mesur√©e.
+	 * @param lastDistance est la nouvelle derni√®re distance mesur√©e.
+	 */
 	public void setLastDistance(float lastDistance) {
 		this.lastDistance = lastDistance;
 	}
-	
-	// Retourne true si le robot est face ‡ un mur, false sinon
+
+	/**
+	 * M√©thode qui permet de d√©tecter la pr√©sence d'un mur.
+	 * @return true si le robot est face √† un mur, false sinon.
+	 */
 	public boolean detectWall() {
 		if(getDistance() < 0.3) {
 			return true;
 		}
-		
 		return false;
 	}
-	
-	// Retourne true si un palet ‡ ÈtÈ dÈtectÈ, false sinon
-	public boolean detectPalet() { 
-	
-	
-		if(currentDistance > lastDistance  && lastDistance <= 0.4) { 
-			
-			return true;
-			
-		}
-		
-		return false;
-	}
-	
-	
-	
-	
-	
-	//Tests
-	public static void main(String[] args) {
 
-		UltrasonicSensor ultra;
-		
-		MovePilot pilot;
-		Wheel leftWheel = WheeledChassis.modelWheel(Motor.B,0.056).offset(-0.06075); // 0.056 = diametre des roues, offset = decalage des roues ??
-		Wheel rightWheel = WheeledChassis.modelWheel(Motor.C, 0.056).offset(0.06075);
-		Chassis chassis = new WheeledChassis(new Wheel[] {leftWheel, rightWheel}, WheeledChassis.TYPE_DIFFERENTIAL);
-		pilot = new MovePilot(chassis);
-		ultra = new UltrasonicSensor();
-		
-		
-		
-		//Test getDistance()
-		
-		while(true) {
-			System.out.println(ultra.getDistance());
-			Delay.msDelay(1000);
-		if(Button.ESCAPE.isDown()) {
-				ultra.us.close();
-				System.exit(0);
-			}
+	/**
+	 * M√©thode qui permet de d√©tecter la pr√©sence d'un palet.
+	 * @return true si le robot a d√©tect√© un palet, false sinon.
+	 */
+	public boolean detectPalet() { 
+		if(currentDistance > lastDistance  && lastDistance <= 0.4) { 
+			return true;
 		}
-		
-		
-		
-		/*Test detectPalet()
-		pilot.forward();
-		while(true) {
-			
-			currentDistance = ultra.getDistance();
-			if(ultra.detectPalet())
-				pilot.stop();
-			lastDistance = currentDistance;
-			Delay.msDelay(50);
-			
-			if(Button.ESCAPE.isDown()) {
-				ultra.us.close();
-				System.exit(0);
-			}
-		}
-		*/
-		
-		/*Test detectWall()
-		pilot.forward();
-		while(true) {
-			//currentDistance = ultra.getDistance();
-			if(ultra.detectWall())
-				pilot.stop();
-			//Delay.msDelay(50);
-			
-			if(Button.ESCAPE.isDown()) {
-				ultra.us.close();
-				System.exit(0);
-			}
-		}
-		*/
-		
-		
-		
-		/* Test rechercherPalet
-		 * 
-		 * 
-		 * boolean res = false;
-		
-		pilot.forward();
-		while (true) {
-			
-			
-			Delay.msDelay(100);
-			currentDistance = ultra.getDistance();
-			res = ultra.detectPalet();
-			lastDistance = currentDistance;
-			
-			System.out.println(res);
-			System.out.println(currentDistance);
-			System.out.println(ultra.getDistance());
-			
-			if(res) {
-				pilot.rotate(90);
-				pilot.forward();
-				Delay.msDelay(1000);
-				pilot.stop();
-				System.out.print(res);
-			}
-			
-		
-		
-			if(Button.ESCAPE.isDown()) {
-				ultra.us.close();
-				System.exit(0);
-			}
-		}
-		*/
+		return false;
 	}
+
 }
