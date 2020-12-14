@@ -36,7 +36,7 @@ public class But extends Thread{
 	public void run() {
 		while(true) {
 			if(db.getCmd() == DB.FIRSTDIRECTIONCMD) {
-				while(!cs.changeColor().equals(ColorSensor.WHITE)) {
+				while(!cs.changeColor().equals(ColorSensor.WHITE)) { 
 					Delay.msDelay(5);
 				}
 				db.setCmd(DB.BUTCMD);
